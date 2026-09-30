@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Detay Sanat Akademi - Öğrenci Paneli</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f3f3;
+    color: #222;
+}
+
+.container {
+    width: 94%;
+    max-width: 900px;
+    margin: 25px auto;
+}
+
+.baslik {
+    background: #111;
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.baslik h1 {
+    margin: 0 0 8px 0;
+    font-size: 25px;
+}
+
+.baslik p {
+    margin: 0;
+    color: #ccc;
+}
+
+.kart {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.istatistikler {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.istatistik {
+    background: #f7f7f7;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.istatistik-baslik {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.istatistik-deger {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.grafik-baslik {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+
+/* ==========================================
+   GELİŞİM GRAFİĞİ
+   ========================================== */
+
+#gelisimGrafik {
+    width: 100%;
+    height: 360px;
+    position: relative;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.grafik-alan {
+    position: absolute;
+    left: 50px;
+    right: 25px;
+    top: 20px;
+    bottom: 75px;
+}
+
+.grafik-cizgi {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #ddd;
+}
+
+.grafik-etiket {
+    position: absolute;
+    right: calc(100% + 8px);
+    top: -8px;
+    font-size: 12px;
+    color: #777;
+}
+
+.grafik-nokta {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #111;
+    border-radius: 50%;
+    transform: translate(-50%, 50%);
+    z-index: 5;
+}
+
+.grafik-puan {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.grafik-baglanti {
+    position: absolute;
+    height: 3px;
+    background: #111;
+    transform-origin: 0 50%;
+    z-index: 2;
+}
+
+.grafik-calisma {
+    position: absolute;
+    top: calc(100% + 20px);
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
+    font-size: 12px;
+    color: #333;
+}
+
+.grafik-calisma strong {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.grafik-tarih {
+    color: #888;
+    font-size: 11px;
+}
+
+
+/* ==========================================
+   ÇALIŞMALAR
+   ========================================== */
+
+.calisma-karti {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+    background: #fafafa;
+}
+
+.calisma-baslik {
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.calisma-tarih {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.puan {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.kriterler {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.kriter {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.yorum {
+    margin-top: 15px;
+    padding: 15px;
+    background: white;
+    border-left: 4px solid #111;
+    border-radius: 5px;
+    line-height: 1.5;
+}
+
+.bos {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+
+.bekliyor {
+    background: #fff8e1;
+    padding: 15px;
+    border-radius: 10px;
+    color: #795548;
+}
+
+.buton {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: #111;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   TELEFON
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .istatistikler {
+        grid-template-columns: 1fr;
+    }
+
+    .kriterler {
+        grid-template-columns: 1fr;
+    }
+
+    #gelisimGrafik {
+        height: 350px;
+    }
+
+    .grafik-calisma {
+        font-size: 10px;
+    }
+
+    .grafik-calisma strong {
+        font-size: 11px;
+    }
+
+    .grafik-tarih {
+        font-size: 9px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- ========================================== -->
+    <!-- BAŞLIK -->
+    <!-- ========================================== -->
+
+    <div class="baslik">
+
+        <h1>
+            DETAY SANAT AKADEMİ
+        </h1>
+
+        <p id="ogrenciBilgisi">
+            Öğrenci paneli
+        </p>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- İSTATİSTİKLER -->
+    <!-- ========================================== -->
+
+    <div class="kart">
+
+        <div class="istatistikler">
+
+
+            <div class="istatistik">
+
+                <div class="istatistik-baslik">
+                    Genel Ortalama
+                </div>
+
+                <div
+                    class="istatistik-deger"
+                    id="ortalama"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="istatistik">
+
+                <div class="istatistik-baslik">
+                    En Yüksek Puan
+                </div>
+
+                <div
+                    class="istatistik-deger"
+                    id="enYuksek"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="istatistik">
+
+                <div class="istatistik-baslik">
+                    Son Puan
+                </div>
+
+                <div
+                    class="istatistik-deger"
+                    id="sonPuan"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- GELİŞİM GRAFİĞİ -->
+    <!-- ========================================== -->
+
+    <div class="kart">
+
+        <div class="grafik-baslik">
+            Gelişim Grafiği
+        </div>
+
+        <div id="gelisimGrafik"></div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- ÇALIŞMALARIM -->
+    <!-- ========================================== -->
+
+    <div class="kart">
+
+        <div class="grafik-baslik">
+            Çalışmalarım
+        </div>
+
+        <div id="calismaListesi">
+
+            <div class="bos">
+                Çalışmalar yükleniyor...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- SONUÇLAR -->
+    <!-- ========================================== -->
+
+    <div class="kart">
+
+        <a
+            id="sonuclarButonu"
+            class="buton"
+            href="#"
+        >
+            SONUÇLARIM
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/* ==========================================
+   ÖĞRENCİ KODUNU URL'DEN AL
+   ========================================== */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const ogrenciKodu =
+    urlParams.get("kod");
+
+
+console.log(
+    "Öğrenci kodu:",
+    ogrenciKodu
+);
+
+
+/* ==========================================
+   VERİLERİ GETİR
+   ========================================== */
+
+async function verileriGetir() {
+
+    if (!ogrenciKodu) {
+
+        console.error(
+            "URL içinde öğrenci kodu yok."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const cevap =
+            await fetch(
+                "/ogrenci-sonuclari/"
+                + encodeURIComponent(
+                    ogrenciKodu
+                )
+            );
+
+
+        console.log(
+            "API cevap durumu:",
+            cevap.status
+        );
+
+
+        const veri =
+            await cevap.json();
+
+
+        console.log(
+            "API verisi:",
+            veri
+        );
+
+
+        if (!veri.basarili) {
+
+            document.getElementById(
+                "ogrenciBilgisi"
+            ).textContent =
+                veri.mesaj ||
+                "Öğrenci bulunamadı.";
+
+            return;
+        }
+
+
+        /* ======================================
+           ÖĞRENCİ BİLGİSİ
+           ====================================== */
+
+        document.getElementById(
+            "ogrenciBilgisi"
+        ).textContent =
+            veri.ogrenci.ad_soyad
+            + " • "
+            + veri.ogrenci.ogrenci_kodu;
+
+
+        /* ======================================
+           SONUÇLAR BUTONU
+           ====================================== */
+
+        document.getElementById(
+            "sonuclarButonu"
+        ).href =
+            "/sonuclar?kod="
+            + encodeURIComponent(
+                ogrenciKodu
+            );
+
+
+        /* ======================================
+           ÇALIŞMALAR
+           ====================================== */
+
+        const calismalar =
+            Array.isArray(
+                veri.calismalar
+            )
+            ? veri.calismalar
+            : [];
+
+
+        console.log(
+            "Çalışmalar:",
+            calismalar
+        );
+
+
+        /* ======================================
+           SADECE DEĞERLENDİRİLMİŞLER
+           ====================================== */
+
+        const degerlendirilenler =
+            calismalar.filter(
+                function(calisma) {
+
+                    return (
+                        calisma.durum
+                        === "Değerlendirildi"
+                    );
+
+                }
+            );
+
+
+        /* ======================================
+           İSTATİSTİKLER
+           ====================================== */
+
+        if (
+            degerlendirilenler.length > 0
+        ) {
+
+            const puanlar =
+                degerlendirilenler
+                .map(
+                    function(calisma) {
+
+                        return Number(
+                            calisma.toplam
+                        );
+
+                    }
+                )
+                .filter(
+                    function(puan) {
+
+                        return !isNaN(
+                            puan
+                        );
+
+                    }
+                );
+
+
+            if (
+                puanlar.length > 0
+            ) {
+
+                const toplam =
+                    puanlar.reduce(
+                        function(a, b) {
+
+                            return a + b;
+
+                        },
+                        0
+                    );
+
+
+                const ortalama =
+                    toplam
+                    /
+                    puanlar.length;
+
+
+                document.getElementById(
+                    "ortalama"
+                ).textContent =
+                    ortalama.toFixed(1);
+
+
+                document.getElementById(
+                    "enYuksek"
+                ).textContent =
+                    Math.max(
+                        ...puanlar
+                    );
+
+
+                document.getElementById(
+                    "sonPuan"
+                ).textContent =
+                    puanlar[0];
+
+
+                grafikOlustur(
+                    degerlendirilenler
+                );
+
+            }
+
+        }
+
+
+        /* ======================================
+           ÇALIŞMALARI GÖSTER
+           ====================================== */
+
+        calismalariGoster(
+            calismalar
+        );
+
+    }
+
+    catch (hata) {
+
+        console.error(
+            "Veri alma hatası:",
+            hata
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   ÇALIŞMALARI GÖSTER
+   ========================================== */
+
+function calismalariGoster(
+    calismalar
+) {
+
+    const liste =
+        document.getElementById(
+            "calismaListesi"
+        );
+
+
+    if (
+        !calismalar
+        ||
+        calismalar.length === 0
+    ) {
+
+        liste.innerHTML =
+            `
+            <div class="bos">
+                Henüz çalışmanız bulunmuyor.
+            </div>
+            `;
+
+        return;
+    }
+
+
+    liste.innerHTML = "";
+
+
+    calismalar.forEach(
+        function(calisma) {
+
+            const kart =
+                document.createElement(
+                    "div"
+                );
+
+
+            kart.className =
+                "calisma-karti";
+
+
+            const tarih =
+                calisma.tarih
+                || "";
+
+
+            /* ==================================
+               DEĞERLENDİRİLMEMİŞ
+               ================================== */
+
+            if (
+                calisma.durum
+                !== "Değerlendirildi"
+            ) {
+
+                kart.innerHTML =
+                    `
+                    <div class="calisma-baslik">
+                        ${calisma.calisma_turu || "Çalışma"}
+                    </div>
+
+                    <div class="calisma-tarih">
+                        ${tarih}
+                    </div>
+
+                    <div class="bekliyor">
+                        Çalışmanız henüz
+                        değerlendirilmedi.
+                    </div>
+                    `;
+
+
+                liste.appendChild(
+                    kart
+                );
+
+                return;
+            }
+
+
+            /* ==================================
+               DEĞERLENDİRİLMİŞ
+               ================================== */
+
+            kart.innerHTML =
+                `
+                <div class="calisma-baslik">
+                    ${calisma.calisma_turu || "Çalışma"}
+                </div>
+
+                <div class="calisma-tarih">
+                    ${tarih}
+                </div>
+
+                <div class="puan">
+                    ${calisma.toplam ?? "-"} / 100
+                </div>
+
+                <div class="kriterler">
+
+                    <div class="kriter">
+                        Kompozisyon:
+                        <strong>
+                            ${calisma.kompozisyon ?? "-"}
+                        </strong>
+                    </div>
+
+                    <div class="kriter">
+                        Oran-Orantı:
+                        <strong>
+                            ${calisma.oran_oranti ?? "-"}
+                        </strong>
+                    </div>
+
+                    <div class="kriter">
+                        Perspektif:
+                        <strong>
+                            ${calisma.perspektif ?? "-"}
+                        </strong>
+                    </div>
+
+                    <div class="kriter">
+                        Işık-Gölge:
+                        <strong>
+                            ${calisma.isik_golge ?? "-"}
+                        </strong>
+                    </div>
+
+                    <div class="kriter">
+                        Çizgi Kullanımı:
+                        <strong>
+                            ${calisma.cizgi_kullanimi ?? "-"}
+                        </strong>
+                    </div>
+
+                </div>
+
+                ${
+                    calisma.yorum
+                    ?
+                    `
+                    <div class="yorum">
+
+                        <strong>
+                            Öğretmen Yorumu:
+                        </strong>
+
+                        <br>
+
+                        ${calisma.yorum}
+
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+                `;
+
+
+            liste.appendChild(
+                kart
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   TARİHİ KISALT
+   ========================================== */
+
+function tarihiKisalt(
+    tarih
+) {
+
+    if (!tarih) {
+        return "";
+    }
+
+
+    const parcalar =
+        tarih.split(" ");
+
+
+    if (
+        parcalar.length === 0
+    ) {
+
+        return tarih;
+
+    }
+
+
+    return parcalar[0];
+
+}
+
+
+/* ==========================================
+   GELİŞİM GRAFİĞİ
+   ========================================== */
+
+function grafikOlustur(
+    calismalar
+) {
+
+    const grafik =
+        document.getElementById(
+            "gelisimGrafik"
+        );
+
+
+    grafik.innerHTML = "";
+
+
+    /* ======================================
+       GRAFİK ALANI
+       ====================================== */
+
+    const grafikAlan =
+        document.createElement(
+            "div"
+        );
+
+
+    grafikAlan.className =
+        "grafik-alan";
+
+
+    grafik.appendChild(
+        grafikAlan
+    );
+
+
+    /* ======================================
+       0 - 100 PUAN ÇİZGİLERİ
+       ====================================== */
+
+    for (
+        let puan = 0;
+        puan <= 100;
+        puan += 20
+    ) {
+
+        const cizgi =
+            document.createElement(
+                "div"
+            );
+
+
+        cizgi.className =
+            "grafik-cizgi";
+
+
+        cizgi.style.bottom =
+            puan + "%";
+
+
+        const etiket =
+            document.createElement(
+                "span"
+            );
+
+
+        etiket.className =
+            "grafik-etiket";
+
+
+        etiket.textContent =
+            puan;
+
+
+        cizgi.appendChild(
+            etiket
+        );
+
+
+        grafikAlan.appendChild(
+            cizgi
+        );
+
+    }
+
+
+    /* ======================================
+       PUAN YOKSA
+       ====================================== */
+
+    if (
+        !calismalar
+        ||
+        calismalar.length === 0
+    ) {
+
+        return;
+    }
+
+
+    /* ======================================
+       NOKTALARI OLUŞTUR
+       ====================================== */
+
+    const noktalar = [];
+
+
+    calismalar.forEach(
+        function(
+            calisma,
+            index
+        ) {
+
+            const puan =
+                Number(
+                    calisma.toplam
+                );
+
+
+            if (
+                isNaN(puan)
+            ) {
+
+                return;
+
+            }
+
+
+            /* X KONUMU */
+
+            let x;
+
+
+            if (
+                calismalar.length === 1
+            ) {
+
+                x = 50;
+
+            }
+            else {
+
+                x =
+                    (
+                        index
+                        /
+                        (calismalar.length - 1)
+                    )
+                    * 100;
+
+            }
+
+
+            /* ==================================
+               NOKTA
+               ================================== */
+
+            const nokta =
+                document.createElement(
+                    "div"
+                );
+
+
+            nokta.className =
+                "grafik-nokta";
+
+
+            nokta.style.left =
+                x + "%";
+
+
+            nokta.style.bottom =
+                puan + "%";
+
+
+            /* ==================================
+               PUAN
+               ================================== */
+
+            const puanEtiketi =
+                document.createElement(
+                    "div"
+                );
+
+
+            puanEtiketi.className =
+                "grafik-puan";
+
+
+            puanEtiketi.textContent =
+                puan;
+
+
+            nokta.appendChild(
+                puanEtiketi
+            );
+
+
+            grafikAlan.appendChild(
+                nokta
+            );
+
+
+            /* ==================================
+               ÇALIŞMA BİLGİSİ
+               ================================== */
+
+            const calismaEtiketi =
+                document.createElement(
+                    "div"
+                );
+
+
+            calismaEtiketi.className =
+                "grafik-calisma";
+
+
+            calismaEtiketi.style.left =
+                x + "%";
+
+
+            calismaEtiketi.innerHTML =
+                `
+                <strong>
+                    Çalışma ${index + 1}
+                </strong>
+
+                <div>
+                    ${calisma.calisma_turu || "Çalışma"}
+                </div>
+
+                <div class="grafik-tarih">
+                    ${tarihiKisalt(calisma.tarih)}
+                </div>
+                `;
+
+
+            grafikAlan.appendChild(
+                calismaEtiketi
+            );
+
+
+            noktalar.push({
+                x: x,
+                y: puan
+            });
+
+        }
+    );
+
+
+    /* ======================================
+       NOKTALARI BİRBİRİNE BAĞLA
+       ====================================== */
+
+    for (
+        let i = 1;
+        i < noktalar.length;
+        i++
+    ) {
+
+        const onceki =
+            noktalar[i - 1];
+
+
+        const mevcut =
+            noktalar[i];
+
+
+        const xFark =
+            mevcut.x
+            -
+            onceki.x;
+
+
+        const yFark =
+            mevcut.y
+            -
+            onceki.y;
+
+
+        const uzunluk =
+            Math.sqrt(
+                (
+                    xFark
+                    *
+                    xFark
+                )
+                +
+                (
+                    yFark
+                    *
+                    yFark
+                )
+            );
+
+
+        const aci =
+            Math.atan2(
+                yFark,
+                xFark
+            )
+            *
+            180
+            /
+            Math.PI;
+
+
+        const baglanti =
+            document.createElement(
+                "div"
+            );
+
+
+        baglanti.className =
+            "grafik-baglanti";
+
+
+        baglanti.style.left =
+            onceki.x + "%";
+
+
+        baglanti.style.bottom =
+            onceki.y + "%";
+
+
+        baglanti.style.width =
+            uzunluk + "%";
+
+
+        baglanti.style.transform =
+            "rotate("
+            +
+            (-aci)
+            +
+            "deg)";
+
+
+        grafikAlan.appendChild(
+            baglanti
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   SAYFA AÇILINCA ÇALIŞTIR
+   ========================================== */
+
+verileriGetir();
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Çalışma Değerlendirme</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .kart {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .alt-baslik {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .bilgi {
+            margin: 8px 0;
+            font-size: 17px;
+        }
+
+        .etiket {
+            font-weight: bold;
+        }
+
+        #resim {
+            width: 100%;
+            max-height: 650px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .kriter {
+            margin-top: 25px;
+        }
+
+        .kriter h3 {
+            margin-bottom: 10px;
+        }
+
+        .secenekler {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .secenekler button {
+            padding: 12px 5px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .secenekler button:hover {
+            background: #eee;
+        }
+
+        .secenekler button.secili {
+            background: #222;
+            color: white;
+            border-color: #222;
+        }
+
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 120px;
+            margin-top: 10px;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: vertical;
+        }
+
+        #kaydet {
+            width: 100%;
+            padding: 15px;
+            margin-top: 25px;
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        #kaydet:hover {
+            background: #444;
+        }
+
+        #mesaj {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+
+            .secenekler {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+    <div class="kart">
+
+        <h1>DETAY SANAT AKADEMİ</h1>
+
+        <div class="alt-baslik">
+            Çizim Değerlendirme
+        </div>
+
+
+        <div id="bilgiler">
+            Çalışma yükleniyor...
+        </div>
+
+
+        <img id="resim">
+
+
+        <!-- KOMPOZİSYON -->
+
+        <div class="kriter">
+
+            <h3>1. Kompozisyon</h3>
+
+            <div class="secenekler">
+
+                <button onclick="puanSec('kompozisyon', 20, this)">
+                    Çok iyi<br>20
+                </button>
+
+                <button onclick="puanSec('kompozisyon', 15, this)">
+                    İyi<br>15
+                </button>
+
+                <button onclick="puanSec('kompozisyon', 10, this)">
+                    Orta<br>10
+                </button>
+
+                <button onclick="puanSec('kompozisyon', 5, this)">
+                    Geliştirilmeli<br>5
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ORAN ORANTI -->
+
+        <div class="kriter">
+
+            <h3>2. Oran-Orantı</h3>
+
+            <div class="secenekler">
+
+                <button onclick="puanSec('oran_oranti', 20, this)">
+                    Çok iyi<br>20
+                </button>
+
+                <button onclick="puanSec('oran_oranti', 15, this)">
+                    İyi<br>15
+                </button>
+
+                <button onclick="puanSec('oran_oranti', 10, this)">
+                    Orta<br>10
+                </button>
+
+                <button onclick="puanSec('oran_oranti', 5, this)">
+                    Geliştirilmeli<br>5
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PERSPEKTİF -->
+
+        <div class="kriter">
+
+            <h3>3. Perspektif</h3>
+
+            <div class="secenekler">
+
+                <button onclick="puanSec('perspektif', 20, this)">
+                    Çok iyi<br>20
+                </button>
+
+                <button onclick="puanSec('perspektif', 15, this)">
+                    İyi<br>15
+                </button>
+
+                <button onclick="puanSec('perspektif', 10, this)">
+                    Orta<br>10
+                </button>
+
+                <button onclick="puanSec('perspektif', 5, this)">
+                    Geliştirilmeli<br>5
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- IŞIK GÖLGE -->
+
+        <div class="kriter">
+
+            <h3>4. Işık-Gölge</h3>
+
+            <div class="secenekler">
+
+                <button onclick="puanSec('isik_golge', 20, this)">
+                    Çok iyi<br>20
+                </button>
+
+                <button onclick="puanSec('isik_golge', 15, this)">
+                    İyi<br>15
+                </button>
+
+                <button onclick="puanSec('isik_golge', 10, this)">
+                    Orta<br>10
+                </button>
+
+                <button onclick="puanSec('isik_golge', 5, this)">
+                    Geliştirilmeli<br>5
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ÇİZGİ -->
+
+        <div class="kriter">
+
+            <h3>5. Çizgi Kullanımı</h3>
+
+            <div class="secenekler">
+
+                <button onclick="puanSec('cizgi_kullanimi', 20, this)">
+                    Çok iyi<br>20
+                </button>
+
+                <button onclick="puanSec('cizgi_kullanimi', 15, this)">
+                    İyi<br>15
+                </button>
+
+                <button onclick="puanSec('cizgi_kullanimi', 10, this)">
+                    Orta<br>10
+                </button>
+
+                <button onclick="puanSec('cizgi_kullanimi', 5, this)">
+                    Geliştirilmeli<br>5
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- YORUM -->
+
+        <div class="kriter">
+
+            <h3>Genel Değerlendirme</h3>
+
+            <textarea
+                id="yorum"
+                placeholder="Öğrenciye gönderilecek değerlendirme yorumunu yazın..."
+            ></textarea>
+
+        </div>
+
+
+        <button id="kaydet" onclick="degerlendirmeyiKaydet()">
+            DEĞERLENDİRMEYİ KAYDET
+        </button>
+
+
+        <div id="mesaj"></div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+let puanlar = {
+
+    kompozisyon: null,
+
+    oran_oranti: null,
+
+    perspektif: null,
+
+    isik_golge: null,
+
+    cizgi_kullanimi: null
+
+};
+
+
+function puanSec(kriter, puan, buton) {
+
+    puanlar[kriter] = puan;
+
+
+    const grup =
+        buton.parentElement;
+
+
+    const butonlar =
+        grup.querySelectorAll("button");
+
+
+    butonlar.forEach(function(b) {
+
+        b.classList.remove("secili");
+
+    });
+
+
+    buton.classList.add("secili");
+
+}
+
+
+function idAl() {
+
+    const parcalar =
+        window.location.pathname.split("/");
+
+    return parcalar[parcalar.length - 1];
+
+}
+
+
+async function calismaGetir() {
+
+    const id = idAl();
+
+
+    try {
+
+        const cevap =
+            await fetch("/calisma/" + id);
+
+
+        const calisma =
+            await cevap.json();
+
+
+        document.getElementById("bilgiler").innerHTML = `
+
+            <div class="bilgi">
+                <span class="etiket">Öğrenci:</span>
+                ${calisma.ogrenci_adi}
+            </div>
+
+            <div class="bilgi">
+                <span class="etiket">Çalışma:</span>
+                ${calisma.calisma_turu}
+            </div>
+
+            <div class="bilgi">
+                <span class="etiket">Durum:</span>
+                ${calisma.durum}
+            </div>
+
+        `;
+
+
+        document.getElementById("resim").src =
+            "/uploads/" + calisma.fotograf;
+
+
+    } catch (hata) {
+
+        document.getElementById("bilgiler").innerText =
+            "Çalışma yüklenemedi.";
+
+        console.error(hata);
+
+    }
+
+}
+
+
+async function degerlendirmeyiKaydet() {
+
+    const id = idAl();
+
+    const yorum =
+        document.getElementById("yorum").value.trim();
+
+
+    if (
+        puanlar.kompozisyon === null ||
+        puanlar.oran_oranti === null ||
+        puanlar.perspektif === null ||
+        puanlar.isik_golge === null ||
+        puanlar.cizgi_kullanimi === null
+    ) {
+
+        document.getElementById("mesaj").innerText =
+            "Lütfen bütün kriterleri puanlayın.";
+
+        return;
+
+    }
+
+
+    try {
+
+        const cevap = await fetch(
+            "/degerlendirme-kaydet",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    id: id,
+
+                    kompozisyon:
+                        puanlar.kompozisyon,
+
+                    oran_oranti:
+                        puanlar.oran_oranti,
+
+                    perspektif:
+                        puanlar.perspektif,
+
+                    isik_golge:
+                        puanlar.isik_golge,
+
+                    cizgi_kullanimi:
+                        puanlar.cizgi_kullanimi,
+
+                    yorum: yorum
+
+                })
+
+            }
+        );
+
+
+        const sonuc =
+            await cevap.json();
+
+
+        if (sonuc.basarili) {
+
+            document.getElementById("mesaj").innerText =
+                "Değerlendirme başarıyla kaydedildi.";
+
+        } else {
+
+            document.getElementById("mesaj").innerText =
+                sonuc.mesaj;
+
+        }
+
+
+    } catch (hata) {
+
+        console.error(hata);
+
+        document.getElementById("mesaj").innerText =
+            "Değerlendirme kaydedilirken hata oluştu.";
+
+    }
+
+}
+
+
+calismaGetir();
+
+
+</script>
+
+
+</body>
+
+</html>

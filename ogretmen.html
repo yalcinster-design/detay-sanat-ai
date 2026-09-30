@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Detay Sanat Akademi - Öğretmen Paneli</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 35px;
+        }
+
+        .panel {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 12px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 6px;
+            background: #222;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .ogrenci {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .ogrenciKod {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .ogrenciAd {
+            margin-top: 5px;
+        }
+
+        .sonucButonu {
+            display: inline-block;
+            background: #444;
+            color: white;
+            text-decoration: none;
+            padding: 9px 14px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .calisma {
+            background: #fafafa;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .calisma img {
+            max-width: 220px;
+            max-height: 250px;
+            display: block;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .degerlendir {
+            background: #333;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .silindi {
+            margin-top: 10px;
+            padding: 10px;
+            background: #eee;
+            border-radius: 6px;
+            color: #555;
+        }
+
+        #ogrenciMesaj {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .bos {
+            padding: 15px;
+            color: #666;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <h1>
+        DETAY SANAT AKADEMİ
+    </h1>
+
+
+    <!-- ----------------------------------------- -->
+    <!-- ÖĞRENCİ EKLE -->
+    <!-- ----------------------------------------- -->
+
+    <div class="panel">
+
+        <h2>
+            Öğrenci Ekle
+        </h2>
+
+
+        <input
+            type="text"
+            id="ogrenciKodu"
+            placeholder="Öğrenci kodu (DS003)"
+        >
+
+
+        <input
+            type="text"
+            id="ogrenciAdi"
+            placeholder="Ad Soyad"
+        >
+
+
+        <button onclick="ogrenciEkle()">
+            ÖĞRENCİ EKLE
+        </button>
+
+
+        <div id="ogrenciMesaj"></div>
+
+    </div>
+
+
+    <!-- ----------------------------------------- -->
+    <!-- ÖĞRENCİLER -->
+    <!-- ----------------------------------------- -->
+
+    <div class="panel">
+
+        <h2>
+            Kayıtlı Öğrenciler
+        </h2>
+
+
+        <button onclick="ogrencileriYukle()">
+            ÖĞRENCİLERİ YENİLE
+        </button>
+
+
+        <div id="ogrenciListesi"></div>
+
+    </div>
+
+
+    <!-- ----------------------------------------- -->
+    <!-- GELEN ÇALIŞMALAR -->
+    <!-- ----------------------------------------- -->
+
+    <div class="panel">
+
+        <h2>
+            Gelen Çalışmalar
+        </h2>
+
+
+        <button onclick="calismalariYukle()">
+            GELEN ÇALIŞMALARI YENİLE
+        </button>
+
+
+        <div id="calismaListesi"></div>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/* ----------------------------------------------
+   ÖĞRENCİ EKLE
+---------------------------------------------- */
+
+
+async function ogrenciEkle() {
+
+    const kod =
+        document
+            .getElementById("ogrenciKodu")
+            .value
+            .trim()
+            .toUpperCase();
+
+
+    const ad =
+        document
+            .getElementById("ogrenciAdi")
+            .value
+            .trim();
+
+
+    const mesaj =
+        document.getElementById(
+            "ogrenciMesaj"
+        );
+
+
+    if (!kod || !ad) {
+
+        mesaj.innerText =
+            "Öğrenci kodu ve ad soyad girilmelidir.";
+
+        return;
+    }
+
+
+    const cevap =
+        await fetch(
+            "/ogrenci-ekle",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    ogrenci_kodu: kod,
+
+                    ad_soyad: ad
+
+                })
+
+            }
+        );
+
+
+    const sonuc =
+        await cevap.json();
+
+
+    mesaj.innerText =
+        sonuc.mesaj;
+
+
+    if (sonuc.basarili) {
+
+        document
+            .getElementById("ogrenciKodu")
+            .value = "";
+
+
+        document
+            .getElementById("ogrenciAdi")
+            .value = "";
+
+
+        ogrencileriYukle();
+
+    }
+
+}
+
+
+/* ----------------------------------------------
+   ÖĞRENCİLERİ GETİR
+---------------------------------------------- */
+
+
+async function ogrencileriYukle() {
+
+    const cevap =
+        await fetch(
+            "/ogrenciler"
+        );
+
+
+    const ogrenciler =
+        await cevap.json();
+
+
+    const liste =
+        document.getElementById(
+            "ogrenciListesi"
+        );
+
+
+    liste.innerHTML = "";
+
+
+    if (
+        ogrenciler.length === 0
+    ) {
+
+        liste.innerHTML =
+            "<div class='bos'>Henüz öğrenci bulunmuyor.</div>";
+
+        return;
+    }
+
+
+    ogrenciler.forEach(
+        function(ogrenci) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "ogrenci";
+
+
+            div.innerHTML = `
+
+                <div class="ogrenciKod">
+                    ${ogrenci.ogrenci_kodu}
+                </div>
+
+                <div class="ogrenciAd">
+                    ${ogrenci.ad_soyad}
+                </div>
+
+                <a
+                    class="sonucButonu"
+                    href="/sonuclar?kod=${encodeURIComponent(ogrenci.ogrenci_kodu)}"
+                    target="_blank"
+                >
+                    SONUÇLARINI GÖR
+                </a>
+
+            `;
+
+
+            liste.appendChild(div);
+
+        }
+    );
+
+}
+
+
+/* ----------------------------------------------
+   GELEN ÇALIŞMALAR
+---------------------------------------------- */
+
+
+async function calismalariYukle() {
+
+    const cevap =
+        await fetch(
+            "/calismalar"
+        );
+
+
+    const calismalar =
+        await cevap.json();
+
+
+    const liste =
+        document.getElementById(
+            "calismaListesi"
+        );
+
+
+    liste.innerHTML = "";
+
+
+    if (
+        calismalar.length === 0
+    ) {
+
+        liste.innerHTML =
+            "<div class='bos'>Henüz çalışma gönderilmemiş.</div>";
+
+        return;
+    }
+
+
+    calismalar.forEach(
+        function(calisma) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "calisma";
+
+
+            let html = `
+
+                <strong>
+                    Öğrenci:
+                </strong>
+
+                ${calisma.ogrenci_adi}
+
+                <br>
+
+                <strong>
+                    Öğrenci Kodu:
+                </strong>
+
+                ${calisma.ogrenci_kodu || "-"}
+
+                <br>
+
+                <strong>
+                    Çalışma:
+                </strong>
+
+                ${calisma.calisma_turu}
+
+                <br>
+
+                <strong>
+                    Durum:
+                </strong>
+
+                ${calisma.durum}
+
+                <br>
+
+                <strong>
+                    Tarih:
+                </strong>
+
+                ${calisma.tarih}
+
+            `;
+
+
+            /*
+             * Henüz değerlendirilmemişse
+             * fotoğrafı göster.
+             */
+
+            if (
+                calisma.durum ===
+                "Bekliyor"
+            ) {
+
+                html += `
+
+                    <img
+                        src="/uploads/${calisma.fotograf}"
+                        alt="Öğrenci çizimi"
+                    >
+
+                    <a
+                        class="degerlendir"
+                        href="/degerlendir/${calisma.id}"
+                    >
+                        DEĞERLENDİR
+                    </a>
+
+                `;
+
+            }
+
+            else {
+
+                html += `
+
+                    <div class="silindi">
+
+                        Fotoğraf değerlendirme
+                        sonrasında silindi.
+
+                    </div>
+
+                    <br>
+
+                    <a
+                        class="sonucButonu"
+                        href="/sonuclar?kod=${encodeURIComponent(calisma.ogrenci_kodu || "")}"
+                        target="_blank"
+                    >
+                        ÖĞRENCİ SONUÇLARINI GÖR
+                    </a>
+
+                `;
+
+            }
+
+
+            div.innerHTML =
+                html;
+
+
+            liste.appendChild(div);
+
+        }
+    );
+
+}
+
+
+/* ----------------------------------------------
+   SAYFA AÇILINCA
+---------------------------------------------- */
+
+
+ogrencileriYukle();
+
+calismalariYukle();
+
+
+</script>
+
+
+</body>
+
+</html>

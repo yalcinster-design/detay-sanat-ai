@@ -1,0 +1,297 @@
+```html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Detay Sanat Akademi</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #171717,
+                    #292929
+                );
+
+            color: white;
+        }
+
+        .kutu {
+
+            width: 90%;
+
+            max-width: 420px;
+
+            background: white;
+
+            color: #222;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.35);
+
+            text-align: center;
+        }
+
+        .logo {
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+        .alt-baslik {
+
+            color: #777;
+
+            margin-bottom: 30px;
+
+            font-size: 15px;
+        }
+
+        input {
+
+            width: 100%;
+
+            padding: 16px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 10px;
+
+            font-size: 18px;
+
+            text-align: center;
+
+            text-transform: uppercase;
+
+            outline: none;
+        }
+
+        input:focus {
+
+            border-color: #222;
+        }
+
+        button {
+
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #222;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+
+            background: #444;
+        }
+
+        #mesaj {
+
+            margin-top: 18px;
+
+            min-height: 22px;
+
+            font-size: 14px;
+
+            color: #c00;
+        }
+
+        .bilgi {
+
+            margin-top: 25px;
+
+            font-size: 13px;
+
+            color: #888;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="kutu">
+
+        <div class="logo">
+            DETAY SANAT AKADEMİ
+        </div>
+
+        <div class="alt-baslik">
+            Öğrenci Sonuç Sistemi
+        </div>
+
+        <input
+            type="text"
+            id="ogrenciKodu"
+            placeholder="Öğrenci Kodunuz"
+            autocomplete="off"
+        >
+
+        <button onclick="girisYap()">
+            GİRİŞ YAP
+        </button>
+
+        <div id="mesaj"></div>
+
+        <div class="bilgi">
+            Öğrenci kodunuzu öğretmeninizden öğrenebilirsiniz.
+        </div>
+
+    </div>
+
+
+    <script>
+
+        async function girisYap() {
+
+            const kodInput =
+                document.getElementById(
+                    "ogrenciKodu"
+                );
+
+            const mesaj =
+                document.getElementById(
+                    "mesaj"
+                );
+
+            const kod =
+                kodInput.value
+                .trim()
+                .toUpperCase();
+
+            if (!kod) {
+
+                mesaj.textContent =
+                    "Lütfen öğrenci kodunuzu girin.";
+
+                return;
+            }
+
+            mesaj.style.color = "#555";
+
+            mesaj.textContent =
+                "Kontrol ediliyor...";
+
+
+            try {
+
+                const cevap =
+                    await fetch(
+                        "/ogrenci-sonuclari/" +
+                        encodeURIComponent(kod)
+                    );
+
+                const veri =
+                    await cevap.json();
+
+
+                if (
+                    !cevap.ok ||
+                    !veri.basarili
+                ) {
+
+                    mesaj.style.color = "#c00";
+
+                    mesaj.textContent =
+                        veri.mesaj ||
+                        "Öğrenci bulunamadı.";
+
+                    return;
+                }
+
+
+                /*
+                    Öğrenci bulundu.
+
+                    Sonuç sayfasına yönlendiriyoruz.
+                */
+
+                window.location.href =
+                    "/sonuclar?kod=" +
+                    encodeURIComponent(kod);
+
+            }
+
+            catch (hata) {
+
+                console.error(hata);
+
+                mesaj.style.color = "#c00";
+
+                mesaj.textContent =
+                    "Sunucuya bağlanılamadı.";
+
+            }
+
+        }
+
+
+        document
+            .getElementById("ogrenciKodu")
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        girisYap();
+
+                    }
+
+                }
+            );
+
+    </script>
+
+</body>
+</html>
+```
