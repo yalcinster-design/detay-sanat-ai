@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -14,79 +15,91 @@
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
             background: #f4f4f4;
-            margin: 0;
-            padding: 20px;
+            color: #222;
         }
 
         .container {
+            width: 92%;
             max-width: 500px;
-            margin: auto;
+            margin: 0 auto;
+            padding: 30px 0;
         }
 
-        .panel {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-top: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
-
-        h1 {
+        .logo {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
-        h2 {
-            margin-top: 0;
+        .logo h1 {
+            margin: 0;
+            font-size: 30px;
+            letter-spacing: 1px;
         }
 
-        input,
-        select {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 14px;
+        .logo p {
             margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
+            color: #666;
+            font-size: 15px;
         }
 
-        input[type="file"] {
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .menu a {
+            display: block;
+            text-decoration: none;
             background: white;
+            color: #222;
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            transition: 0.2s;
         }
 
-        button {
-            width: 100%;
-            padding: 15px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 8px;
-            background: #222;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
+        .menu a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 18px rgba(0,0,0,0.12);
         }
 
-        button:hover {
-            opacity: 0.85;
-        }
-
-        #preview {
-            width: 100%;
-            max-height: 400px;
-            object-fit: contain;
-            margin-top: 15px;
-            border-radius: 10px;
-            display: none;
-        }
-
-        #mesaj {
-            margin-top: 15px;
-            text-align: center;
+        .menu-title {
+            font-size: 19px;
             font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .menu-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .cizim {
+            border-left: 5px solid #222;
+        }
+
+        .sonuc {
+            border-left: 5px solid #555;
+        }
+
+        .yonetici {
+            border-left: 5px solid #777;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #999;
+            font-size: 13px;
         }
 
     </style>
@@ -99,274 +112,85 @@
 
 <div class="container">
 
-    <h1>
-        DETAY SANAT AKADEMİ
-    </h1>
 
+    <div class="logo">
 
-    <div class="panel">
+        <h1>
+            DETAY SANAT AKADEMİ
+        </h1>
 
-        <h2>
-            Çalışma Gönder
-        </h2>
-
-
-        <label>
-            Öğrenci Kodu
-        </label>
-
-        <input
-            type="text"
-            id="ogrenciKodu"
-            placeholder="Örn: DS002"
-            autocomplete="off"
-        >
-
-
-        <label>
-            Çalışma Türü
-        </label>
-
-        <select id="calismaTuru">
-
-            <option value="">
-                Çalışma türünü seçiniz
-            </option>
-
-            <option value="Desen">
-                Desen
-            </option>
-
-            <option value="Perspektif">
-                Perspektif
-            </option>
-
-            <option value="Portre">
-                Portre
-            </option>
-
-            <option value="Natürmort">
-                Natürmort
-            </option>
-
-            <option value="İmgesel">
-                İmgesel
-            </option>
-
-        </select>
-
-
-        <label>
-            Çizim Fotoğrafı
-        </label>
-
-        <input
-            type="file"
-            id="fotograf"
-            accept="image/*"
-            capture="environment"
-        >
-
-
-        <img
-            id="preview"
-            alt="Çizim önizleme"
-        >
-
-
-        <button onclick="gonder()">
-            ÇİZİMİ GÖNDER
-        </button>
-
-
-        <div id="mesaj"></div>
+        <p>
+            Öğrenci ve yönetici paneli
+        </p>
 
     </div>
 
+
+    <div class="menu">
+
+
+        <a
+            href="/ogrenci-panel"
+            class="cizim"
+        >
+
+            <div class="menu-title">
+                🎨 Çizim Gönder
+            </div>
+
+            <div class="menu-text">
+                Çalışmanızı sisteme gönderin.
+            </div>
+
+        </a>
+
+
+        <a
+            href="/sonuclar"
+            class="sonuc"
+        >
+
+            <div class="menu-title">
+                📊 Öğrenci Sonuçları
+            </div>
+
+            <div class="menu-text">
+                Değerlendirme sonuçlarınızı görüntüleyin.
+            </div>
+
+        </a>
+
+
+        <a
+            href="/yonetici-giris"
+            class="yonetici"
+        >
+
+            <div class="menu-title">
+                🔐 Yönetici Girişi
+            </div>
+
+            <div class="menu-text">
+                Öğrenci kayıtları ve değerlendirme paneli.
+            </div>
+
+        </a>
+
+
+    </div>
+
+
+    <div class="footer">
+
+        Detay Sanat Akademi
+
+    </div>
+
+
 </div>
-
-
-<script>
-
-
-const fotografInput =
-    document.getElementById("fotograf");
-
-
-const preview =
-    document.getElementById("preview");
-
-
-fotografInput.addEventListener(
-    "change",
-    function() {
-
-        const dosya =
-            this.files[0];
-
-        if (!dosya) {
-
-            preview.style.display =
-                "none";
-
-            return;
-        }
-
-        const url =
-            URL.createObjectURL(dosya);
-
-        preview.src = url;
-
-        preview.style.display =
-            "block";
-
-    }
-);
-
-
-async function gonder() {
-
-    const ogrenciKodu =
-        document
-            .getElementById("ogrenciKodu")
-            .value
-            .trim()
-            .toUpperCase();
-
-
-    const calismaTuru =
-        document
-            .getElementById("calismaTuru")
-            .value;
-
-
-    const fotograf =
-        document
-            .getElementById("fotograf")
-            .files[0];
-
-
-    const mesaj =
-        document.getElementById("mesaj");
-
-
-    mesaj.innerText = "";
-
-
-    if (!ogrenciKodu) {
-
-        mesaj.innerText =
-            "Öğrenci kodunuzu giriniz.";
-
-        return;
-    }
-
-
-    if (!calismaTuru) {
-
-        mesaj.innerText =
-            "Çalışma türünü seçiniz.";
-
-        return;
-    }
-
-
-    if (!fotograf) {
-
-        mesaj.innerText =
-            "Çizim fotoğrafını seçiniz.";
-
-        return;
-    }
-
-
-    const formData =
-        new FormData();
-
-
-    formData.append(
-        "ogrenci_kodu",
-        ogrenciKodu
-    );
-
-
-    formData.append(
-        "calisma_turu",
-        calismaTuru
-    );
-
-
-    formData.append(
-        "fotograf",
-        fotograf
-    );
-
-
-    mesaj.innerText =
-        "Çizim gönderiliyor...";
-
-
-    try {
-
-        const cevap =
-            await fetch(
-                "/gonder",
-                {
-                    method: "POST",
-                    body: formData
-                }
-            );
-
-
-        const sonuc =
-            await cevap.json();
-
-
-        mesaj.innerText =
-            sonuc.mesaj;
-
-
-        if (sonuc.basarili) {
-
-            document
-                .getElementById("ogrenciKodu")
-                .value = "";
-
-
-            document
-                .getElementById("calismaTuru")
-                .value = "";
-
-
-            document
-                .getElementById("fotograf")
-                .value = "";
-
-
-            preview.src = "";
-
-            preview.style.display =
-                "none";
-
-        }
-
-    }
-
-    catch (hata) {
-
-        mesaj.innerText =
-            "Sunucuya bağlanırken bir hata oluştu.";
-
-        console.error(hata);
-
-    }
-
-}
-
-
-</script>
 
 
 </body>
 
 </html>
+```
