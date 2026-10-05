@@ -1,3 +1,4 @@
+```python
 from flask import (
     Flask,
     request,
@@ -8,6 +9,7 @@ from flask import (
     redirect,
     url_for
 )
+
 import os
 import sqlite3
 import secrets
@@ -28,13 +30,11 @@ from database import (
 
 app = Flask(__name__)
 
-# Güvenlik anahtarı
 app.secret_key = os.environ.get(
     "SECRET_KEY",
     "local-development-secret-key"
 )
 
-# Yönetici şifresi
 ADMIN_PASSWORD = os.environ.get(
     "ADMIN_PASSWORD",
     ""
@@ -51,14 +51,16 @@ veritabani_olustur()
 
 
 # ==================================================
-# YÖNETİCİ GÜVENLİK SİSTEMİ
+# YÖNETİCİ GÜVENLİK
 # ==================================================
 
 def yonetici_gerekli(f):
+
     @wraps(f)
     def decorated_function(*args, **kwargs):
 
         if not session.get("yonetici_giris"):
+
             return jsonify({
                 "basarili": False,
                 "mesaj": "Yönetici girişi gerekli."
@@ -75,50 +77,77 @@ def yonetici_gerekli(f):
 
 @app.route("/")
 def home():
-    return send_from_directory(".", "index.html")
+
+    return send_from_directory(
+        ".",
+        "index.html"
+    )
 
 
 # ==================================================
 # ÖĞRENCİ BÖLÜMLERİ
-# ŞİFRE GEREKTİRMEZ
 # ==================================================
 
 @app.route("/ogrenci-giris")
 def ogrenci_giris():
-    return render_template("ogrenci_giris.html")
+
+    return render_template(
+        "ogrenci_giris.html"
+    )
 
 
 @app.route("/ogrenci-panel")
 def ogrenci_panel():
-    return render_template("ogrenci_panel.html")
+
+    return render_template(
+        "ogrenci_panel.html"
+    )
 
 
 @app.route("/sonuclar")
 def sonuclar():
-    return send_from_directory(".", "sonuclar.html")
+
+    return send_from_directory(
+        ".",
+        "sonuclar.html"
+    )
 
 
 # ==================================================
 # YÖNETİCİ GİRİŞ
 # ==================================================
 
-@app.route("/yonetici-giris", methods=["GET", "POST"])
+@app.route(
+    "/yonetici-giris",
+    methods=["GET", "POST"]
+)
 def yonetici_giris():
 
     if request.method == "GET":
 
         if session.get("yonetici_giris"):
-            return redirect(url_for("yonetici_panel"))
+
+            return redirect(
+                url_for("yonetici_panel")
+            )
 
         return """
         <!DOCTYPE html>
         <html lang="tr">
+
         <head>
+
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+            >
+
             <title>Yönetici Girişi</title>
 
             <style>
+
                 body {
                     margin: 0;
                     font-family: Arial, sans-serif;
@@ -170,12 +199,8 @@ def yonetici_giris():
                     background: #444;
                 }
 
-                .hata {
-                    color: #c62828;
-                    text-align: center;
-                    margin-bottom: 15px;
-                }
             </style>
+
         </head>
 
         <body>
@@ -202,18 +227,26 @@ def yonetici_giris():
             </div>
 
         </body>
+
         </html>
         """
 
-    sifre = request.form.get("sifre", "")
+    sifre = request.form.get(
+        "sifre",
+        ""
+    )
 
     if not ADMIN_PASSWORD:
+
         return """
         <h2>Yönetici şifresi ayarlanmamış.</h2>
-        <p>VS Code terminalinde ADMIN_PASSWORD tanımlayın.</p>
+        <p>ADMIN_PASSWORD tanımlayın.</p>
         """
 
-    if secrets.compare_digest(sifre, ADMIN_PASSWORD):
+    if secrets.compare_digest(
+        sifre,
+        ADMIN_PASSWORD
+    ):
 
         session["yonetici_giris"] = True
 
@@ -224,17 +257,27 @@ def yonetici_giris():
     return """
     <!DOCTYPE html>
     <html lang="tr">
+
     <head>
+
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        >
+
         <title>Yönetici Girişi</title>
+
     </head>
 
-    <body style="
-        font-family: Arial;
-        text-align: center;
-        padding: 50px;
-    ">
+    <body
+        style="
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+        "
+    >
 
         <h2>❌ Şifre yanlış</h2>
 
@@ -245,6 +288,7 @@ def yonetici_giris():
         </p>
 
     </body>
+
     </html>
     """, 401
 
@@ -391,10 +435,6 @@ def yonetici_panel():
                 cursor: pointer;
             }
 
-            .sil:hover {
-                background: #d00025;
-            }
-
             @media (max-width: 600px) {
 
                 .ogrenci {
@@ -421,6 +461,7 @@ def yonetici_panel():
             </p>
 
         </header>
+
 
         <div class="container">
 
@@ -520,9 +561,8 @@ def yonetici_panel():
 
                 try {
 
-                    const cevap = await fetch(
-                        "/ogrenciler"
-                    );
+                    const cevap =
+                        await fetch("/ogrenciler");
 
                     if (!cevap.ok) {
 
@@ -552,42 +592,50 @@ def yonetici_panel():
 
                     liste.innerHTML = "";
 
-                    ogrenciler.forEach(function(ogrenci) {
+                    ogrenciler.forEach(
+                        function(ogrenci) {
 
-                        const div =
-                            document.createElement("div");
+                            const div =
+                                document.createElement(
+                                    "div"
+                                );
 
-                        div.className = "ogrenci";
+                            div.className = "ogrenci";
 
-                        div.innerHTML = `
-                            <div class="ogrenci-bilgi">
-                                <strong>
-                                    ${ogrenci.ad_soyad}
-                                </strong>
-                                <br>
-                                <small>
-                                    Kod:
-                                    ${ogrenci.ogrenci_kodu}
-                                </small>
-                            </div>
+                            div.innerHTML = `
+                                <div class="ogrenci-bilgi">
 
-                            <button
-                                class="sil"
-                                onclick="ogrenciSil(
-                                    ${ogrenci.id},
-                                    '${ogrenci.ad_soyad.replace(
-                                        /'/g,
-                                        "\\'"
-                                    )}'
-                                )"
-                            >
-                                Öğrenciyi Sil
-                            </button>
-                        `;
+                                    <strong>
+                                        ${ogrenci.ad_soyad}
+                                    </strong>
 
-                        liste.appendChild(div);
+                                    <br>
 
-                    });
+                                    <small>
+                                        Kod:
+                                        ${ogrenci.ogrenci_kodu}
+                                    </small>
+
+                                </div>
+
+                                <button
+                                    class="sil"
+                                    onclick="ogrenciSil(
+                                        ${ogrenci.id},
+                                        '${ogrenci.ad_soyad.replace(
+                                            /'/g,
+                                            "\\'"
+                                        )}'
+                                    )"
+                                >
+                                    Öğrenciyi Sil
+                                </button>
+                            `;
+
+                            liste.appendChild(div);
+
+                        }
+                    );
 
                 } catch (hata) {
 
@@ -623,23 +671,26 @@ def yonetici_panel():
 
                 try {
 
-                    const cevap = await fetch(
-                        "/ogrenci-ekle",
-                        {
-                            method: "POST",
+                    const cevap =
+                        await fetch(
+                            "/ogrenci-ekle",
+                            {
+                                method: "POST",
 
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
 
-                            body: JSON.stringify({
-                                ad_soyad: adSoyad,
-                                ogrenci_kodu:
-                                    ogrenciKodu
-                            })
-                        }
-                    );
+                                body: JSON.stringify({
+                                    ad_soyad:
+                                        adSoyad,
+
+                                    ogrenci_kodu:
+                                        ogrenciKodu
+                                })
+                            }
+                        );
 
                     const sonuc =
                         await cevap.json();
@@ -669,7 +720,7 @@ def yonetici_panel():
                 const onay =
                     confirm(
                         adSoyad +
-                        " isimli öğrenciyi silmek istediğinize emin misiniz?\\n\\n" +
+                        " isimli öğrenciyi silmek istediğinize emin misiniz?\n\n" +
                         "Bu işlem öğrencinin kayıtlarını ve değerlendirme geçmişini de silecektir."
                     );
 
@@ -679,12 +730,13 @@ def yonetici_panel():
 
                 try {
 
-                    const cevap = await fetch(
-                        "/ogrenci-sil/" + id,
-                        {
-                            method: "DELETE"
-                        }
-                    );
+                    const cevap =
+                        await fetch(
+                            "/ogrenci-sil/" + id,
+                            {
+                                method: "DELETE"
+                            }
+                        );
 
                     const sonuc =
                         await cevap.json();
@@ -718,7 +770,6 @@ def yonetici_panel():
 
 # ==================================================
 # ÖĞRETMEN PANELİ
-# YÖNETİCİ KORUMALI
 # ==================================================
 
 @app.route("/ogretmen")
@@ -733,7 +784,6 @@ def ogretmen():
 
 # ==================================================
 # DEĞERLENDİRME SAYFASI
-# YÖNETİCİ KORUMALI
 # ==================================================
 
 @app.route("/degerlendir/<int:id>")
@@ -748,7 +798,6 @@ def degerlendir(id):
 
 # ==================================================
 # UPLOADS
-# YÖNETİCİ KORUMALI
 # ==================================================
 
 @app.route("/uploads/<filename>")
@@ -763,16 +812,19 @@ def uploads(filename):
 
 # ==================================================
 # ÖĞRENCİ EKLE
-# YÖNETİCİ KORUMALI
 # ==================================================
 
-@app.route("/ogrenci-ekle", methods=["POST"])
+@app.route(
+    "/ogrenci-ekle",
+    methods=["POST"]
+)
 @yonetici_gerekli
 def ogrenci_ekle_api():
 
     veri = request.get_json()
 
     if not veri:
+
         return jsonify({
             "basarili": False,
             "mesaj": "Veri alınamadı."
@@ -789,12 +841,14 @@ def ogrenci_ekle_api():
     ).strip()
 
     if not ogrenci_kodu:
+
         return jsonify({
             "basarili": False,
             "mesaj": "Öğrenci kodu girilmedi."
         })
 
     if not ad_soyad:
+
         return jsonify({
             "basarili": False,
             "mesaj": "Ad soyad girilmedi."
@@ -816,13 +870,13 @@ def ogrenci_ekle_api():
 
         return jsonify({
             "basarili": False,
-            "mesaj": f"Öğrenci eklenemedi: {str(e)}"
+            "mesaj":
+                f"Öğrenci eklenemedi: {str(e)}"
         })
 
 
 # ==================================================
 # ÖĞRENCİLERİ GETİR
-# YÖNETİCİ KORUMALI
 # ==================================================
 
 @app.route("/ogrenciler")
@@ -837,8 +891,10 @@ def ogrenciler():
 
         liste.append({
             "id": kayit["id"],
-            "ogrenci_kodu": kayit["ogrenci_kodu"],
-            "ad_soyad": kayit["ad_soyad"]
+            "ogrenci_kodu":
+                kayit["ogrenci_kodu"],
+            "ad_soyad":
+                kayit["ad_soyad"]
         })
 
     return jsonify(liste)
@@ -846,7 +902,6 @@ def ogrenciler():
 
 # ==================================================
 # ÖĞRENCİ SİL
-# YÖNETİCİ KORUMALI
 # ==================================================
 
 @app.route(
@@ -857,6 +912,7 @@ def ogrenciler():
 def ogrenci_sil(id):
 
     conn = sqlite3.connect(DATABASE)
+
     conn.row_factory = sqlite3.Row
 
     cursor = conn.cursor()
@@ -880,13 +936,16 @@ def ogrenci_sil(id):
 
             return jsonify({
                 "basarili": False,
-                "mesaj": "Öğrenci bulunamadı."
+                "mesaj":
+                    "Öğrenci bulunamadı."
             }), 404
 
-        ogrenci_kodu = ogrenci["ogrenci_kodu"]
+        ogrenci_kodu =
+            ogrenci["ogrenci_kodu"]
 
         cursor.execute("""
-            SELECT fotograf
+            SELECT
+                fotograf
             FROM calismalar
             WHERE ogrenci_kodu = ?
         """, (ogrenci_kodu,))
@@ -900,17 +959,16 @@ def ogrenci_sil(id):
             fotograf = calisma["fotograf"]
 
             if fotograf:
+
                 silinecek_dosyalar.append(
                     fotograf
                 )
 
-        # Öğrencinin tüm çalışma kayıtlarını sil
         cursor.execute("""
             DELETE FROM calismalar
             WHERE ogrenci_kodu = ?
         """, (ogrenci_kodu,))
 
-        # Öğrenciyi sil
         cursor.execute("""
             DELETE FROM ogrenciler
             WHERE id = ?
@@ -920,7 +978,6 @@ def ogrenci_sil(id):
 
         conn.close()
 
-        # Fiziksel fotoğrafları sil
         for fotograf in silinecek_dosyalar:
 
             dosya_yolu = os.path.join(
@@ -931,6 +988,7 @@ def ogrenci_sil(id):
             if os.path.exists(dosya_yolu):
 
                 try:
+
                     os.remove(dosya_yolu)
 
                 except Exception as e:
@@ -950,6 +1008,7 @@ def ogrenci_sil(id):
     except Exception as e:
 
         conn.rollback()
+
         conn.close()
 
         return jsonify({
@@ -961,11 +1020,371 @@ def ogrenci_sil(id):
 
 # ==================================================
 # ÇALIŞMA GÖNDER
-# ÖĞRENCİLER İÇİN AÇIK
+# GET  = SAYFAYI AÇAR
+# POST = ÇALIŞMAYI KAYDEDER
 # ==================================================
 
-@app.route("/gonder", methods=["POST"])
+@app.route(
+    "/gonder",
+    methods=["GET", "POST"]
+)
 def gonder():
+
+    # --------------------------------------------------
+    # GET
+    # --------------------------------------------------
+
+    if request.method == "GET":
+
+        return """
+        <!DOCTYPE html>
+
+        <html lang="tr">
+
+        <head>
+
+            <meta charset="UTF-8">
+
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+            >
+
+            <title>
+                Çizim Gönder - Detay Sanat Akademi
+            </title>
+
+            <style>
+
+                * {
+                    box-sizing: border-box;
+                }
+
+                body {
+
+                    margin: 0;
+
+                    font-family:
+                        Arial,
+                        sans-serif;
+
+                    background: #f4f4f4;
+
+                    color: #222;
+                }
+
+                .container {
+
+                    width: 92%;
+
+                    max-width: 500px;
+
+                    margin: 0 auto;
+
+                    padding:
+                        25px 0 40px;
+                }
+
+                .ust {
+
+                    display: flex;
+
+                    align-items: center;
+
+                    gap: 12px;
+
+                    margin-bottom: 25px;
+
+                    flex-wrap: wrap;
+                }
+
+                .ana-menu {
+
+                    display: inline-block;
+
+                    padding:
+                        11px 16px;
+
+                    background: #222;
+
+                    color: white;
+
+                    text-decoration: none;
+
+                    border-radius: 10px;
+
+                    font-size: 14px;
+                }
+
+                .ana-menu:hover {
+
+                    background: #444;
+                }
+
+                h1 {
+
+                    margin: 0;
+
+                    font-size: 25px;
+                }
+
+                .kart {
+
+                    background: white;
+
+                    padding: 25px;
+
+                    border-radius: 18px;
+
+                    box-shadow:
+                        0 5px 20px
+                        rgba(0,0,0,0.08);
+                }
+
+                label {
+
+                    display: block;
+
+                    margin-bottom: 8px;
+
+                    font-weight: bold;
+                }
+
+                input,
+                select {
+
+                    width: 100%;
+
+                    padding: 14px;
+
+                    margin-bottom: 18px;
+
+                    border:
+                        1px solid #ddd;
+
+                    border-radius: 10px;
+
+                    font-size: 16px;
+                }
+
+                button {
+
+                    width: 100%;
+
+                    padding: 15px;
+
+                    border: none;
+
+                    border-radius: 10px;
+
+                    background: #222;
+
+                    color: white;
+
+                    font-size: 16px;
+
+                    cursor: pointer;
+                }
+
+                button:hover {
+
+                    background: #444;
+                }
+
+                #mesaj {
+
+                    margin-top: 18px;
+
+                    text-align: center;
+
+                    font-weight: bold;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <div class="container">
+
+                <div class="ust">
+
+                    <a
+                        href="/"
+                        class="ana-menu"
+                    >
+                        ← Ana Menü
+                    </a>
+
+                    <h1>
+                        🎨 Çizim Gönder
+                    </h1>
+
+                </div>
+
+
+                <div class="kart">
+
+                    <form
+                        id="gonderForm"
+                        enctype="multipart/form-data"
+                    >
+
+                        <label>
+                            Öğrenci Kodu
+                        </label>
+
+                        <input
+                            type="text"
+                            name="ogrenci_kodu"
+                            placeholder="Örn: DS001"
+                            required
+                        >
+
+
+                        <label>
+                            Çalışma Türü
+                        </label>
+
+                        <select
+                            name="calisma_turu"
+                            required
+                        >
+
+                            <option value="">
+                                Seçiniz
+                            </option>
+
+                            <option
+                                value="Güzel Sanatlar Fakültelerine Hazırlık"
+                            >
+                                GSF Hazırlık
+                            </option>
+
+                            <option
+                                value="Çocuk Resim Kursu"
+                            >
+                                Çocuk Resim
+                            </option>
+
+                        </select>
+
+
+                        <label>
+                            Çizim Fotoğrafı
+                        </label>
+
+                        <input
+                            type="file"
+                            name="fotograf"
+                            accept="image/*"
+                            capture="environment"
+                            required
+                        >
+
+
+                        <button
+                            type="submit"
+                        >
+                            Çizimi Gönder
+                        </button>
+
+                    </form>
+
+
+                    <div id="mesaj"></div>
+
+                </div>
+
+            </div>
+
+
+            <script>
+
+                document
+                    .getElementById(
+                        "gonderForm"
+                    )
+                    .addEventListener(
+                        "submit",
+                        async function(event) {
+
+                            event.preventDefault();
+
+                            const form =
+                                document.getElementById(
+                                    "gonderForm"
+                                );
+
+                            const mesaj =
+                                document.getElementById(
+                                    "mesaj"
+                                );
+
+                            const veri =
+                                new FormData(
+                                    form
+                                );
+
+                            mesaj.innerHTML =
+                                "Gönderiliyor...";
+
+                            try {
+
+                                const cevap =
+                                    await fetch(
+                                        "/gonder",
+                                        {
+                                            method:
+                                                "POST",
+                                            body:
+                                                veri
+                                        }
+                                    );
+
+                                const sonuc =
+                                    await cevap.json();
+
+                                if (
+                                    sonuc.basarili
+                                ) {
+
+                                    mesaj.innerHTML =
+                                        "✅ " +
+                                        sonuc.mesaj;
+
+                                    form.reset();
+
+                                } else {
+
+                                    mesaj.innerHTML =
+                                        "❌ " +
+                                        sonuc.mesaj;
+
+                                }
+
+                            } catch (hata) {
+
+                                mesaj.innerHTML =
+                                    "❌ Sunucu bağlantısı kurulamadı.";
+
+                            }
+
+                        }
+                    );
+
+            </script>
+
+        </body>
+
+        </html>
+        """
+
+
+    # --------------------------------------------------
+    # POST
+    # --------------------------------------------------
 
     ogrenci_kodu = request.form.get(
         "ogrenci_kodu",
@@ -981,18 +1400,23 @@ def gonder():
     )
 
     if not ogrenci_kodu:
+
         return jsonify({
             "basarili": False,
-            "mesaj": "Öğrenci kodu girilmedi."
+            "mesaj":
+                "Öğrenci kodu girilmedi."
         })
 
     if not fotograf:
+
         return jsonify({
             "basarili": False,
-            "mesaj": "Çizim fotoğrafı gönderilmedi."
+            "mesaj":
+                "Çizim fotoğrafı gönderilmedi."
         })
 
     conn = sqlite3.connect(DATABASE)
+
     conn.row_factory = sqlite3.Row
 
     cursor = conn.cursor()
@@ -1010,16 +1434,20 @@ def gonder():
     conn.close()
 
     if not ogrenci:
+
         return jsonify({
             "basarili": False,
-            "mesaj": "Bu öğrenci kodu kayıtlı değil."
+            "mesaj":
+                "Bu öğrenci kodu kayıtlı değil."
         })
 
-    ogrenci_adi = ogrenci["ad_soyad"]
+    ogrenci_adi =
+        ogrenci["ad_soyad"]
 
-    dosya_adi = secure_filename(
-        fotograf.filename
-    )
+    dosya_adi =
+        secure_filename(
+            fotograf.filename
+        )
 
     import time
 
@@ -1034,7 +1462,9 @@ def gonder():
         yeni_dosya_adi
     )
 
-    fotograf.save(dosya_yolu)
+    fotograf.save(
+        dosya_yolu
+    )
 
     calisma_id = calisma_ekle(
         ogrenci_adi,
@@ -1044,26 +1474,48 @@ def gonder():
     )
 
     print()
-    print("Yeni öğrenci çalışması geldi!")
-    print("-----------------------------")
-    print("ID:", calisma_id)
-    print("Öğrenci kodu:", ogrenci_kodu)
-    print("Öğrenci:", ogrenci_adi)
-    print("Çalışma:", calisma_turu)
-    print("Fotoğraf:", yeni_dosya_adi)
-    print("-----------------------------")
+    print(
+        "Yeni öğrenci çalışması geldi!"
+    )
+    print(
+        "-----------------------------"
+    )
+    print(
+        "ID:",
+        calisma_id
+    )
+    print(
+        "Öğrenci kodu:",
+        ogrenci_kodu
+    )
+    print(
+        "Öğrenci:",
+        ogrenci_adi
+    )
+    print(
+        "Çalışma:",
+        calisma_turu
+    )
+    print(
+        "Fotoğraf:",
+        yeni_dosya_adi
+    )
+    print(
+        "-----------------------------"
+    )
     print()
 
     return jsonify({
         "basarili": True,
-        "mesaj": "Çizimin başarıyla gönderildi.",
-        "id": calisma_id
+        "mesaj":
+            "Çizimin başarıyla gönderildi.",
+        "id":
+            calisma_id
     })
 
 
 # ==================================================
 # ÇALIŞMALAR
-# YÖNETİCİ KORUMALI
 # ==================================================
 
 @app.route("/calismalar")
@@ -1071,6 +1523,7 @@ def gonder():
 def calismalar():
 
     conn = sqlite3.connect(DATABASE)
+
     conn.row_factory = sqlite3.Row
 
     cursor = conn.cursor()
@@ -1090,21 +1543,35 @@ def calismalar():
     for kayit in kayitlar:
 
         liste.append({
-            "id": kayit["id"],
-            "ogrenci_adi": kayit["ogrenci_adi"],
-            "ogrenci_kodu": kayit["ogrenci_kodu"],
-            "calisma_turu": kayit["calisma_turu"],
-            "fotograf": kayit["fotograf"],
-            "durum": kayit["durum"],
-            "tarih": kayit["tarih"]
+
+            "id":
+                kayit["id"],
+
+            "ogrenci_adi":
+                kayit["ogrenci_adi"],
+
+            "ogrenci_kodu":
+                kayit["ogrenci_kodu"],
+
+            "calisma_turu":
+                kayit["calisma_turu"],
+
+            "fotograf":
+                kayit["fotograf"],
+
+            "durum":
+                kayit["durum"],
+
+            "tarih":
+                kayit["tarih"]
+
         })
 
     return jsonify(liste)
 
 
 # ==================================================
-# ÖĞRENCİ SONUÇLARI
-# ÖĞRENCİLER İÇİN AÇIK
+# ÖĞRENCİ SONUÇLARI API
 # ==================================================
 
 @app.route(
@@ -1118,7 +1585,10 @@ def ogrenci_sonuclari(ogrenci_kodu):
         .upper()
     )
 
-    conn = sqlite3.connect(DATABASE)
+    conn = sqlite3.connect(
+        DATABASE
+    )
+
     conn.row_factory = sqlite3.Row
 
     cursor = conn.cursor()
@@ -1139,7 +1609,8 @@ def ogrenci_sonuclari(ogrenci_kodu):
 
         return jsonify({
             "basarili": False,
-            "mesaj": "Öğrenci bulunamadı."
+            "mesaj":
+                "Öğrenci bulunamadı."
         }), 404
 
     cursor.execute("""
@@ -1159,7 +1630,8 @@ def ogrenci_sonuclari(ogrenci_kodu):
         ORDER BY id DESC
     """, (ogrenci_kodu,))
 
-    calisma_kayitlari = cursor.fetchall()
+    calisma_kayitlari =
+        cursor.fetchall()
 
     conn.close()
 
@@ -1168,63 +1640,100 @@ def ogrenci_sonuclari(ogrenci_kodu):
     for calisma in calisma_kayitlari:
 
         puanlar = [
+
             calisma["kompozisyon"],
+
             calisma["oran_oranti"],
+
             calisma["perspektif"],
+
             calisma["isik_golge"],
+
             calisma["cizgi_kullanimi"]
+
         ]
 
         if all(
             puan is not None
             for puan in puanlar
         ):
+
             toplam = sum(puanlar)
+
         else:
+
             toplam = None
 
         liste.append({
-            "id": calisma["id"],
+
+            "id":
+                calisma["id"],
+
             "calisma_turu":
                 calisma["calisma_turu"],
-            "durum": calisma["durum"],
+
+            "durum":
+                calisma["durum"],
+
             "kompozisyon":
                 calisma["kompozisyon"],
+
             "oran_oranti":
                 calisma["oran_oranti"],
+
             "perspektif":
                 calisma["perspektif"],
+
             "isik_golge":
                 calisma["isik_golge"],
+
             "cizgi_kullanimi":
                 calisma["cizgi_kullanimi"],
-            "toplam": toplam,
-            "yorum": calisma["yorum"],
-            "tarih": calisma["tarih"]
+
+            "toplam":
+                toplam,
+
+            "yorum":
+                calisma["yorum"],
+
+            "tarih":
+                calisma["tarih"]
+
         })
 
     return jsonify({
-        "basarili": True,
+
+        "basarili":
+            True,
+
         "ogrenci": {
+
             "ogrenci_kodu":
                 ogrenci["ogrenci_kodu"],
+
             "ad_soyad":
                 ogrenci["ad_soyad"]
+
         },
-        "calismalar": liste
+
+        "calismalar":
+            liste
+
     })
 
 
 # ==================================================
 # TEK ÇALIŞMA
-# YÖNETİCİ KORUMALI
 # ==================================================
 
 @app.route("/calisma/<int:id>")
 @yonetici_gerekli
 def calisma(id):
 
-    conn = sqlite3.connect(DATABASE)
+    conn = sqlite3.connect(
+        DATABASE
+    )
+
     conn.row_factory = sqlite3.Row
 
     cursor = conn.cursor()
@@ -1243,25 +1752,32 @@ def calisma(id):
 
         return jsonify({
             "basarili": False,
-            "mesaj": "Çalışma bulunamadı."
+            "mesaj":
+                "Çalışma bulunamadı."
         }), 404
 
     return jsonify({
-        "id": kayit["id"],
+
+        "id":
+            kayit["id"],
+
         "ogrenci_adi":
             kayit["ogrenci_adi"],
+
         "calisma_turu":
             kayit["calisma_turu"],
+
         "fotograf":
             kayit["fotograf"],
+
         "durum":
             kayit["durum"]
+
     })
 
 
 # ==================================================
 # DEĞERLENDİRME KAYDET
-# YÖNETİCİ KORUMALI
 # ==================================================
 
 @app.route(
@@ -1275,15 +1791,12 @@ def degerlendirme_kaydet():
 
         veri = request.get_json()
 
-        print()
-        print("DEĞERLENDİRME İSTEĞİ GELDİ")
-        print("Gelen veri:", veri)
-
         if not veri:
 
             return jsonify({
                 "basarili": False,
-                "mesaj": "Veri alınamadı."
+                "mesaj":
+                    "Veri alınamadı."
             }), 400
 
         try:
@@ -1292,7 +1805,10 @@ def degerlendirme_kaydet():
                 veri.get("id")
             )
 
-        except (TypeError, ValueError):
+        except (
+            TypeError,
+            ValueError
+        ):
 
             return jsonify({
                 "basarili": False,
@@ -1322,7 +1838,10 @@ def degerlendirme_kaydet():
                 veri.get("cizgi_kullanimi")
             )
 
-        except (TypeError, ValueError):
+        except (
+            TypeError,
+            ValueError
+        ):
 
             return jsonify({
                 "basarili": False,
@@ -1331,7 +1850,10 @@ def degerlendirme_kaydet():
             }), 400
 
         yorum = str(
-            veri.get("yorum", "")
+            veri.get(
+                "yorum",
+                ""
+            )
         ).strip()
 
         gecerli_puanlar = [
@@ -1365,7 +1887,10 @@ def degerlendirme_kaydet():
             + cizgi_kullanimi
         )
 
-        conn = sqlite3.connect(DATABASE)
+        conn = sqlite3.connect(
+            DATABASE
+        )
+
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -1391,12 +1916,8 @@ def degerlendirme_kaydet():
                     "Çalışma bulunamadı."
             }), 404
 
-        fotograf = kayit["fotograf"]
-
-        print(
-            "Bulunan çalışma:",
-            dict(kayit)
-        )
+        fotograf =
+            kayit["fotograf"]
 
         cursor.execute("""
             UPDATE calismalar
@@ -1420,8 +1941,6 @@ def degerlendirme_kaydet():
             calisma_id
         ))
 
-        degisen_satir = cursor.rowcount
-
         conn.commit()
 
         cursor.execute("""
@@ -1442,21 +1961,6 @@ def degerlendirme_kaydet():
 
         conn.close()
 
-        print()
-        print(
-            "UPDATE sonucu:",
-            degisen_satir
-        )
-
-        if kontrol:
-
-            print(
-                "Güncel kayıt:",
-                dict(kontrol)
-            )
-
-        print()
-
         if not kontrol:
 
             return jsonify({
@@ -1474,6 +1978,7 @@ def degerlendirme_kaydet():
             }), 500
 
         # Değerlendirilen fotoğrafı sil
+
         if fotograf:
 
             dosya_yolu = os.path.join(
@@ -1481,15 +1986,14 @@ def degerlendirme_kaydet():
                 fotograf
             )
 
-            if os.path.exists(dosya_yolu):
+            if os.path.exists(
+                dosya_yolu
+            ):
 
                 try:
 
-                    os.remove(dosya_yolu)
-
-                    print(
-                        "Değerlendirilen fotoğraf silindi:",
-                        fotograf
+                    os.remove(
+                        dosya_yolu
                     )
 
                 except Exception as e:
@@ -1499,40 +2003,34 @@ def degerlendirme_kaydet():
                         str(e)
                     )
 
-        print()
-        print(
-            "DEĞERLENDİRME BAŞARIYLA KAYDEDİLDİ"
-        )
-        print(
-            "Çalışma ID:",
-            calisma_id
-        )
-        print(
-            "Toplam puan:",
-            toplam
-        )
-        print()
-
         return jsonify({
-            "basarili": True,
+
+            "basarili":
+                True,
+
             "mesaj":
                 "Değerlendirme başarıyla kaydedildi.",
-            "toplam": toplam
+
+            "toplam":
+                toplam
+
         })
 
     except Exception as e:
 
-        print()
         print(
-            "DEĞERLENDİRME HATASI:"
+            "DEĞERLENDİRME HATASI:",
+            str(e)
         )
-        print(str(e))
-        print()
 
         return jsonify({
-            "basarili": False,
+
+            "basarili":
+                False,
+
             "mesaj":
                 f"Sunucu hatası: {str(e)}"
+
         }), 500
 
 
@@ -1565,3 +2063,4 @@ if __name__ == "__main__":
         port=5000,
         debug=True
     )
+```
