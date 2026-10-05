@@ -106,11 +106,77 @@ def ogrenci_panel():
 
 @app.route("/sonuclar")
 def sonuclar():
+    try:
+        dosya_yolu = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "sonuclar.html"
+        )
 
-    return send_from_directory(
-        ".",
-        "sonuclar.html"
-    )
+        with open(
+            dosya_yolu,
+            "r",
+            encoding="utf-8"
+        ) as dosya:
+            html = dosya.read()
+
+        ana_menu_butonu = """
+        <a href="/"
+           style="
+               position: fixed;
+               top: 15px;
+               left: 15px;
+               z-index: 9999;
+               display: inline-block;
+               padding: 12px 18px;
+               background: #222;
+               color: white;
+               text-decoration: none;
+               border-radius: 10px;
+               font-family: Arial, sans-serif;
+               font-size: 14px;
+               box-shadow: 0 3px 10px rgba(0,0,0,0.20);
+           ">
+            ← Ana Menü
+        </a>
+        """
+
+        if "</body>" in html:
+            html = html.replace(
+                "</body>",
+                ana_menu_butonu + "</body>"
+            )
+        else:
+            html += ana_menu_butonu
+
+        return html
+
+    except Exception as e:
+        return f"""
+        <!DOCTYPE html>
+        <html lang="tr">
+        <head>
+            <meta charset="UTF-8">
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+            >
+            <title>Hata</title>
+        </head>
+        <body
+            style="
+                font-family: Arial;
+                text-align: center;
+                padding: 40px;
+            "
+        >
+            <h2>Sonuçlar sayfası açılamadı.</h2>
+            <p>{str(e)}</p>
+            <p>
+                <a href="/">← Ana Menü</a>
+            </p>
+        </body>
+        </html>
+        """, 500
 
 
 # ==================================================
