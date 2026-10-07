@@ -213,34 +213,81 @@ def yonetici_giris():
         return """
         <!DOCTYPE html>
         <html lang="tr">
+
         <head>
+
             <meta charset="UTF-8">
+
             <meta
                 name="viewport"
                 content="width=device-width, initial-scale=1.0"
             >
+
             <title>Hatalı Şifre</title>
+
+            <style>
+
+                * {
+                    box-sizing: border-box;
+                }
+
+                body {
+                    margin: 0;
+                    background: #f4f4f4;
+                    font-family: Arial, sans-serif;
+                    color: #222;
+                }
+
+                .hata {
+                    width: 90%;
+                    max-width: 400px;
+                    margin: 80px auto;
+                    background: white;
+                    padding: 30px;
+                    border-radius: 16px;
+                    text-align: center;
+                    box-shadow:
+                        0 5px 20px
+                        rgba(0,0,0,0.10);
+                }
+
+                .hata a {
+                    display: inline-block;
+                    margin-top: 15px;
+                    padding: 10px 20px;
+                    background: #222;
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 25px;
+                }
+
+            </style>
+
         </head>
 
-        <body
-            style="
-                font-family: Arial;
-                text-align: center;
-                padding: 40px;
-            "
-        >
+        <body>
 
-            <h2>Şifre hatalı.</h2>
+            <div class="hata">
 
-            <p>
+                <h2>
+                    Şifre hatalı.
+                </h2>
+
+                <p>
+                    Lütfen tekrar deneyin.
+                </p>
+
                 <a href="/yonetici-giris">
-                    Tekrar dene
+                    ← TEKRAR DENE
                 </a>
-            </p>
+
+            </div>
 
         </body>
+
         </html>
         """, 401
+
 
     return """
     <!DOCTYPE html>
@@ -255,7 +302,7 @@ def yonetici_giris():
             content="width=device-width, initial-scale=1.0"
         >
 
-        <title>Yönetici Girişi</title>
+        <title>Yönetici Girişi - Detay Sanat Akademi</title>
 
         <style>
 
@@ -267,49 +314,171 @@ def yonetici_giris():
                 margin: 0;
                 background: #f4f4f4;
                 font-family: Arial, sans-serif;
+                color: #222;
             }
+
+            /* -----------------------------------------
+               ANA KONTEYNER
+            ----------------------------------------- */
 
             .container {
-                width: 90%;
+                width: 92%;
                 max-width: 400px;
-                margin: 80px auto;
-                background: white;
-                padding: 30px;
-                border-radius: 16px;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+                margin: 0 auto;
+                padding: 30px 0 35px;
             }
 
-            h1 {
+            /* -----------------------------------------
+               LOGO
+            ----------------------------------------- */
+
+            .ust {
                 text-align: center;
-                margin-bottom: 25px;
+                margin-bottom: 15px;
+            }
+
+            .ust img {
+                width: 130px;
+                max-width: 50%;
+                height: auto;
+                display: block;
+                margin: 0 auto 12px;
+            }
+
+            .ust h1 {
+                margin: 0;
+                font-size: 23px;
+                letter-spacing: 1px;
+            }
+
+            .alt-baslik {
+                margin-top: 7px;
+                color: #666;
+                font-size: 14px;
+            }
+
+            /* -----------------------------------------
+               ANA MENÜ
+            ----------------------------------------- */
+
+            .ana-menu-alan {
+                text-align: center;
+                margin: 18px 0 20px;
+            }
+
+            .ana-menu {
+                display: inline-block;
+
+                padding: 10px 20px;
+
+                background: #222;
+                color: white;
+
+                text-decoration: none;
+
+                border-radius: 25px;
+
+                font-size: 14px;
+                font-weight: bold;
+
+                box-shadow:
+                    0 3px 10px
+                    rgba(0,0,0,0.15);
+            }
+
+            /* -----------------------------------------
+               GİRİŞ KARTI
+            ----------------------------------------- */
+
+            .card {
+                background: white;
+
+                padding: 25px;
+
+                border-radius: 18px;
+
+                box-shadow:
+                    0 5px 20px
+                    rgba(0,0,0,0.10);
+            }
+
+            .card h2 {
+                text-align: center;
+                margin-top: 0;
+                margin-bottom: 22px;
+                font-size: 20px;
             }
 
             input {
                 width: 100%;
+
                 padding: 14px;
-                border: 1px solid #ddd;
+
+                border:
+                    1px solid #ddd;
+
                 border-radius: 10px;
+
                 margin-bottom: 15px;
+
                 font-size: 16px;
+            }
+
+            input:focus {
+                outline: none;
+                border-color: #222;
             }
 
             button {
                 width: 100%;
+
                 padding: 14px;
+
                 border: none;
+
                 border-radius: 10px;
+
                 background: #222;
                 color: white;
+
                 font-size: 16px;
+                font-weight: bold;
+
                 cursor: pointer;
             }
 
-            .home {
-                display: block;
-                text-align: center;
-                margin-top: 20px;
-                color: #555;
-                text-decoration: none;
+            button:hover {
+                opacity: 0.9;
+            }
+
+            /* -----------------------------------------
+               TELEFON
+            ----------------------------------------- */
+
+            @media (max-width: 600px) {
+
+                .container {
+                    width: 94%;
+                    padding-top: 20px;
+                }
+
+                .ust img {
+                    width: 115px;
+                }
+
+                .ust h1 {
+                    font-size: 20px;
+                }
+
+                .alt-baslik {
+                    font-size: 13px;
+                }
+
+                .card {
+                    padding: 20px;
+                    border-radius: 16px;
+                }
+
             }
 
         </style>
@@ -320,29 +489,72 @@ def yonetici_giris():
 
         <div class="container">
 
-            <h1>🔐 Yönetici Girişi</h1>
+            <!-- LOGO -->
 
-            <form method="POST">
+            <div class="ust">
 
-                <input
-                    type="password"
-                    name="sifre"
-                    placeholder="Yönetici şifresi"
-                    required
+                <img
+                    src="/static/logo.png"
+                    alt="Detay Sanat Akademi"
                 >
 
-                <button type="submit">
-                    Giriş Yap
-                </button>
+                <h1>
+                    DETAY SANAT AKADEMİ
+                </h1>
 
-            </form>
+                <div class="alt-baslik">
+                    Yönetici Girişi
+                </div>
+
+            </div>
+
+
+            <!-- ANA MENÜ -->
+
+            <div class="ana-menu-alan">
+
+                <a
+                    href="/"
+                    class="ana-menu"
+                >
+                    ← ANA MENÜ
+                </a>
+
+            </div>
+
+
+            <!-- GİRİŞ FORMU -->
+
+            <div class="card">
+
+                <h2>
+                    🔐 Yönetici Girişi
+                </h2>
+
+                <form method="POST">
+
+                    <input
+                        type="password"
+                        name="sifre"
+                        placeholder="Yönetici şifresi"
+                        required
+                    >
+
+                    <button type="submit">
+                        Giriş Yap
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
 
     </body>
 
     </html>
     """
-
-
+    
 # =========================================================
 # YÖNETİCİ ÇIKIŞI
 # =========================================================
