@@ -994,40 +994,91 @@ def gonder():
                     color: #222;
                 }
 
+                /* -----------------------------------------
+                   ANA KONTEYNER
+                ----------------------------------------- */
+
                 .container {
                     width: 92%;
                     max-width: 500px;
                     margin: 0 auto;
-                    padding: 75px 0 30px;
+                    padding: 25px 0 35px;
                 }
 
-                .home {
-                    position: fixed;
-                    top: 15px;
-                    left: 15px;
-                    z-index: 9999;
+                /* -----------------------------------------
+                   ÜST LOGO ALANI
+                ----------------------------------------- */
 
+                .ust {
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+
+                .ust img {
+                    width: 130px;
+                    max-width: 50%;
+                    height: auto;
+                    display: block;
+                    margin: 0 auto 12px;
+                }
+
+                .ust h1 {
+                    margin: 0;
+                    font-size: 23px;
+                    letter-spacing: 1px;
+                }
+
+                .alt-baslik {
+                    margin-top: 7px;
+                    color: #666;
+                    font-size: 14px;
+                }
+
+                /* -----------------------------------------
+                   ANA MENÜ BUTONU
+                ----------------------------------------- */
+
+                .ana-menu-alan {
+                    text-align: center;
+                    margin: 18px 0 20px;
+                }
+
+                .ana-menu {
                     display: inline-block;
 
-                    padding: 12px 18px;
+                    padding: 10px 20px;
 
                     background: #222;
                     color: white;
 
                     text-decoration: none;
 
-                    border-radius: 10px;
+                    border-radius: 25px;
 
                     font-size: 14px;
+                    font-weight: bold;
 
                     box-shadow:
                         0 3px 10px
-                        rgba(0,0,0,0.20);
+                        rgba(0,0,0,0.15);
+
+                    transition: 0.2s;
                 }
+
+                .ana-menu:hover {
+                    transform: translateY(-1px);
+                    opacity: 0.9;
+                }
+
+                /* -----------------------------------------
+                   FORM KARTI
+                ----------------------------------------- */
 
                 .card {
                     background: white;
+
                     padding: 25px;
+
                     border-radius: 18px;
 
                     box-shadow:
@@ -1035,21 +1086,26 @@ def gonder():
                         rgba(0,0,0,0.08);
                 }
 
-                h1 {
+                .card h2 {
                     text-align: center;
                     margin-top: 0;
+                    margin-bottom: 20px;
+                    font-size: 20px;
                 }
 
                 label {
                     display: block;
+
                     margin-top: 18px;
                     margin-bottom: 7px;
+
                     font-weight: bold;
                 }
 
                 input,
                 select {
                     width: 100%;
+
                     padding: 14px;
 
                     border:
@@ -1058,10 +1114,20 @@ def gonder():
                     border-radius: 10px;
 
                     font-size: 16px;
+
+                    background: white;
+                }
+
+                input:focus,
+                select:focus {
+                    outline: none;
+
+                    border-color: #222;
                 }
 
                 button {
                     width: 100%;
+
                     margin-top: 22px;
 
                     padding: 15px;
@@ -1074,14 +1140,72 @@ def gonder():
                     color: white;
 
                     font-size: 16px;
+                    font-weight: bold;
 
                     cursor: pointer;
                 }
 
+                button:hover {
+                    opacity: 0.9;
+                }
+
                 #sonuc {
                     margin-top: 20px;
+
                     text-align: center;
+
                     font-weight: bold;
+
+                    line-height: 1.5;
+                }
+
+                /* -----------------------------------------
+                   TELEFON
+                ----------------------------------------- */
+
+                @media (max-width: 600px) {
+
+                    .container {
+                        width: 94%;
+                        padding-top: 20px;
+                    }
+
+                    .ust img {
+                        width: 115px;
+                    }
+
+                    .ust h1 {
+                        font-size: 20px;
+                    }
+
+                    .alt-baslik {
+                        font-size: 13px;
+                    }
+
+                    .ana-menu-alan {
+                        margin-top: 15px;
+                        margin-bottom: 18px;
+                    }
+
+                    .ana-menu {
+                        padding: 9px 18px;
+                        font-size: 13px;
+                    }
+
+                    .card {
+                        padding: 20px;
+                        border-radius: 16px;
+                    }
+
+                    input,
+                    select {
+                        padding: 13px;
+                    }
+
+                    button {
+                        padding: 14px;
+                    }
+
                 }
 
             </style>
@@ -1090,20 +1214,49 @@ def gonder():
 
         <body>
 
-            <a
-                href="/"
-                class="home"
-            >
-                ← Ana Menü
-            </a>
-
             <div class="container">
+
+                <!-- LOGO VE BAŞLIK -->
+
+                <div class="ust">
+
+                    <img
+                        src="/static/logo.png"
+                        alt="Detay Sanat Akademi"
+                    >
+
+                    <h1>
+                        DETAY SANAT AKADEMİ
+                    </h1>
+
+                    <div class="alt-baslik">
+                        Çizim Gönder
+                    </div>
+
+                </div>
+
+
+                <!-- ANA MENÜ -->
+
+                <div class="ana-menu-alan">
+
+                    <a
+                        href="/"
+                        class="ana-menu"
+                    >
+                        ← ANA MENÜ
+                    </a>
+
+                </div>
+
+
+                <!-- FORM -->
 
                 <div class="card">
 
-                    <h1>
+                    <h2>
                         🎨 Çizim Gönder
-                    </h1>
+                    </h2>
 
                     <form
                         id="gonderForm"
@@ -1120,6 +1273,7 @@ def gonder():
                             placeholder="Örn: DS002"
                             required
                         >
+
 
                         <label>
                             Çalışma Türü
@@ -1144,6 +1298,7 @@ def gonder():
 
                         </select>
 
+
                         <label>
                             Çizim Fotoğrafı
                         </label>
@@ -1156,17 +1311,20 @@ def gonder():
                             required
                         >
 
+
                         <button type="submit">
                             Çizimi Gönder
                         </button>
 
                     </form>
 
+
                     <div id="sonuc"></div>
 
                 </div>
 
             </div>
+
 
             <script>
 
@@ -1234,6 +1392,8 @@ def gonder():
     # -----------------------------------------------------
     # POST = ÇİZİMİ KAYDET
     # -----------------------------------------------------
+
+    try:
 
     try:
 
