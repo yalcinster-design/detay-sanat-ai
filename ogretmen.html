@@ -1,232 +1,393 @@
 <!DOCTYPE html>
+
 <html lang="tr">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>Detay Sanat Akademi - Öğretmen Paneli</title>
+<title>Detay Sanat Akademi - Öğretmen Paneli</title>
 
-    <style>
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        color: #222;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    /* LOGO */
+
+    .header {
+        text-align: center;
+        margin-bottom: 18px;
+    }
+
+    .header img {
+        width: 125px;
+        max-width: 45%;
+        height: auto;
+        display: block;
+        margin: 0 auto 10px;
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 26px;
+        letter-spacing: 1px;
+    }
+
+    .header p {
+        margin: 8px 0 0;
+        color: #666;
+        font-size: 14px;
+    }
+
+    /* ANA MENÜ */
+
+    .ana-menu-alani {
+        text-align: center;
+        margin: 22px 0 28px;
+    }
+
+    .ana-menu {
+        display: inline-block;
+        text-decoration: none;
+        background: #222;
+        color: white;
+        padding: 11px 24px;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: bold;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+        transition: 0.2s;
+    }
+
+    .ana-menu:hover {
+        opacity: 0.85;
+        transform: translateY(-1px);
+    }
+
+    /* PANELLER */
+
+    .panel {
+        background: white;
+        padding: 20px;
+        border-radius: 14px;
+        margin-top: 20px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 18px;
+        font-size: 21px;
+    }
+
+    input {
+        padding: 12px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 7px;
+        font-size: 15px;
+        max-width: 100%;
+    }
+
+    button {
+        padding: 12px 18px;
+        border: none;
+        border-radius: 7px;
+        background: #222;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+        margin: 5px;
+    }
+
+    button:hover {
+        opacity: 0.85;
+    }
+
+    /* ÖĞRENCİ */
+
+    .ogrenci {
+        padding: 17px 5px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .ogrenciKod {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .ogrenciAd {
+        margin-top: 6px;
+    }
+
+    .sonucButonu {
+        display: inline-block;
+        background: #444;
+        color: white;
+        text-decoration: none;
+        padding: 9px 14px;
+        border-radius: 7px;
+        margin-top: 11px;
+        font-size: 13px;
+    }
+
+    /* ÇALIŞMA */
+
+    .calisma {
+        background: #fafafa;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .calisma img {
+        width: auto;
+        max-width: 100%;
+        max-height: 300px;
+        display: block;
+        margin: 12px auto 0;
+        border-radius: 8px;
+    }
+
+    .degerlendir {
+        background: #333;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        padding: 10px 15px;
+        border-radius: 7px;
+        margin-top: 12px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .silindi {
+        margin-top: 12px;
+        padding: 10px;
+        background: #eee;
+        border-radius: 7px;
+        color: #555;
+    }
+
+    #ogrenciMesaj {
+        margin-top: 12px;
+        font-weight: bold;
+    }
+
+    .bos {
+        padding: 15px 5px;
+        color: #666;
+    }
+
+    /* TELEFON */
+
+    @media (max-width: 600px) {
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 0;
-            padding: 20px;
+            padding: 15px;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: auto;
+        .header {
+            margin-bottom: 10px;
         }
 
-        h1 {
-            text-align: center;
+        .header img {
+            width: 105px;
         }
 
-        h2 {
-            margin-top: 35px;
+        .header h1 {
+            font-size: 21px;
+        }
+
+        .header p {
+            font-size: 13px;
+        }
+
+        .ana-menu-alani {
+            margin: 20px 0 24px;
+        }
+
+        .ana-menu {
+            padding: 10px 22px;
+            font-size: 13px;
         }
 
         .panel {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        h2 {
+            font-size: 19px;
         }
 
         input {
-            padding: 12px;
+            width: calc(100% - 10px);
             margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 15px;
         }
 
         button {
-            padding: 12px 18px;
-            border: none;
-            border-radius: 6px;
-            background: #222;
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
+            width: calc(100% - 10px);
             margin: 5px;
         }
 
-        button:hover {
-            opacity: 0.85;
-        }
-
-        .ogrenci {
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .ogrenciKod {
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .ogrenciAd {
-            margin-top: 5px;
-        }
-
-        .sonucButonu {
-            display: inline-block;
-            background: #444;
-            color: white;
-            text-decoration: none;
-            padding: 9px 14px;
-            border-radius: 6px;
-            margin-top: 10px;
+        .sonucButonu,
+        .degerlendir {
+            width: 100%;
+            text-align: center;
         }
 
         .calisma {
-            background: #fafafa;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
+            padding: 13px;
         }
 
-        .calisma img {
-            max-width: 220px;
-            max-height: 250px;
-            display: block;
-            margin-top: 10px;
-            border-radius: 8px;
-        }
+    }
 
-        .degerlendir {
-            background: #333;
-            color: white;
-            text-decoration: none;
-            display: inline-block;
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-top: 10px;
-        }
-
-        .silindi {
-            margin-top: 10px;
-            padding: 10px;
-            background: #eee;
-            border-radius: 6px;
-            color: #555;
-        }
-
-        #ogrenciMesaj {
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        .bos {
-            padding: 15px;
-            color: #666;
-        }
-
-    </style>
+</style>
+```
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
+```
+<!-- BAŞLIK VE LOGO -->
+
+<div class="header">
+
+    <img
+        src="/static/logo.png"
+        alt="Detay Sanat Akademi"
+    >
 
     <h1>
         DETAY SANAT AKADEMİ
     </h1>
 
-
-    <!-- ----------------------------------------- -->
-    <!-- ÖĞRENCİ EKLE -->
-    <!-- ----------------------------------------- -->
-
-    <div class="panel">
-
-        <h2>
-            Öğrenci Ekle
-        </h2>
-
-
-        <input
-            type="text"
-            id="ogrenciKodu"
-            placeholder="Öğrenci kodu (DS003)"
-        >
-
-
-        <input
-            type="text"
-            id="ogrenciAdi"
-            placeholder="Ad Soyad"
-        >
-
-
-        <button onclick="ogrenciEkle()">
-            ÖĞRENCİ EKLE
-        </button>
-
-
-        <div id="ogrenciMesaj"></div>
-
-    </div>
-
-
-    <!-- ----------------------------------------- -->
-    <!-- ÖĞRENCİLER -->
-    <!-- ----------------------------------------- -->
-
-    <div class="panel">
-
-        <h2>
-            Kayıtlı Öğrenciler
-        </h2>
-
-
-        <button onclick="ogrencileriYukle()">
-            ÖĞRENCİLERİ YENİLE
-        </button>
-
-
-        <div id="ogrenciListesi"></div>
-
-    </div>
-
-
-    <!-- ----------------------------------------- -->
-    <!-- GELEN ÇALIŞMALAR -->
-    <!-- ----------------------------------------- -->
-
-    <div class="panel">
-
-        <h2>
-            Gelen Çalışmalar
-        </h2>
-
-
-        <button onclick="calismalariYukle()">
-            GELEN ÇALIŞMALARI YENİLE
-        </button>
-
-
-        <div id="calismaListesi"></div>
-
-    </div>
-
+    <p>
+        Öğretmen Paneli
+    </p>
 
 </div>
 
+
+<!-- ANA MENÜ -->
+
+<div class="ana-menu-alani">
+
+    <a
+        href="/"
+        class="ana-menu"
+    >
+        ← ANA MENÜ
+    </a>
+
+</div>
+
+
+<!-- ----------------------------------------- -->
+<!-- ÖĞRENCİ EKLE -->
+<!-- ----------------------------------------- -->
+
+<div class="panel">
+
+    <h2>
+        Öğrenci Ekle
+    </h2>
+
+
+    <input
+        type="text"
+        id="ogrenciKodu"
+        placeholder="Öğrenci kodu (DS003)"
+    >
+
+
+    <input
+        type="text"
+        id="ogrenciAdi"
+        placeholder="Ad Soyad"
+    >
+
+
+    <button onclick="ogrenciEkle()">
+        ÖĞRENCİ EKLE
+    </button>
+
+
+    <div id="ogrenciMesaj"></div>
+
+</div>
+
+
+<!-- ----------------------------------------- -->
+<!-- ÖĞRENCİLER -->
+<!-- ----------------------------------------- -->
+
+<div class="panel">
+
+    <h2>
+        Kayıtlı Öğrenciler
+    </h2>
+
+
+    <button onclick="ogrencileriYukle()">
+        ÖĞRENCİLERİ YENİLE
+    </button>
+
+
+    <div id="ogrenciListesi"></div>
+
+</div>
+
+
+<!-- ----------------------------------------- -->
+<!-- GELEN ÇALIŞMALAR -->
+<!-- ----------------------------------------- -->
+
+<div class="panel">
+
+    <h2>
+        Gelen Çalışmalar
+    </h2>
+
+
+    <button onclick="calismalariYukle()">
+        GELEN ÇALIŞMALARI YENİLE
+    </button>
+
+
+    <div id="calismaListesi"></div>
+
+</div>
+```
+
+</div>
 
 <script>
 
@@ -567,7 +728,6 @@ calismalariYukle();
 
 
 </script>
-
 
 </body>
 

@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -18,39 +17,55 @@
 
 body {
     margin: 0;
+    min-height: 100vh;
     font-family: Arial, sans-serif;
     background: #f4f4f4;
     color: #222;
 }
 
+/* ANA KAPSAYICI */
+
 .container {
     width: 92%;
     max-width: 500px;
     margin: 0 auto;
-    padding: 30px 0;
+    padding: 32px 0 25px;
 }
+
+/* LOGO ALANI */
 
 .logo {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 32px;
+}
+
+.logo img {
+    width: 150px;
+    max-width: 55%;
+    height: auto;
+    display: block;
+    margin: 0 auto 18px;
 }
 
 .logo h1 {
     margin: 0;
-    font-size: 30px;
+    font-size: 25px;
     letter-spacing: 1px;
+    font-weight: 700;
 }
 
 .logo p {
-    margin-top: 10px;
+    margin: 9px 0 0;
     color: #666;
-    font-size: 15px;
+    font-size: 14px;
 }
+
+/* MENÜ */
 
 .menu {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
 }
 
 .menu a {
@@ -58,10 +73,14 @@ body {
     text-decoration: none;
     background: white;
     color: #222;
-    padding: 22px;
+    padding: 19px 20px;
     border-radius: 16px;
     box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    transition: 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.menu a:active {
+    transform: scale(0.98);
 }
 
 .menu a:hover {
@@ -70,7 +89,7 @@ body {
 }
 
 .menu-title {
-    font-size: 19px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 6px;
 }
@@ -78,7 +97,10 @@ body {
 .menu-text {
     color: #666;
     font-size: 14px;
+    line-height: 1.4;
 }
+
+/* SOL RENK ÇİZGİLERİ */
 
 .cizim {
     border-left: 5px solid #222;
@@ -92,11 +114,52 @@ body {
     border-left: 5px solid #777;
 }
 
+/* ALT YAZI */
+
 .footer {
     text-align: center;
-    margin-top: 35px;
+    margin-top: 30px;
     color: #999;
-    font-size: 13px;
+    font-size: 12px;
+}
+
+/* TELEFON */
+
+@media (max-width: 400px) {
+
+    .container {
+        width: 90%;
+        padding-top: 25px;
+    }
+
+    .logo {
+        margin-bottom: 27px;
+    }
+
+    .logo img {
+        width: 125px;
+    }
+
+    .logo h1 {
+        font-size: 21px;
+    }
+
+    .logo p {
+        font-size: 13px;
+    }
+
+    .menu a {
+        padding: 17px 18px;
+    }
+
+    .menu-title {
+        font-size: 17px;
+    }
+
+    .menu-text {
+        font-size: 13px;
+    }
+
 }
 
 </style>
@@ -110,7 +173,14 @@ body {
 <div class="container">
 
 
+    <!-- LOGO -->
+
     <div class="logo">
+
+        <img
+            src="/static/logo.png"
+            alt="Detay Sanat Akademi"
+        >
 
         <h1>
             DETAY SANAT AKADEMİ
@@ -122,6 +192,8 @@ body {
 
     </div>
 
+
+    <!-- ANA MENÜ -->
 
     <div class="menu">
 
@@ -183,8 +255,12 @@ body {
     </div>
 
 
+    <!-- ALT -->
+
     <div class="footer">
+
         Detay Sanat Akademi
+
     </div>
 
 
@@ -194,4 +270,3 @@ body {
 </body>
 
 </html>
-```
