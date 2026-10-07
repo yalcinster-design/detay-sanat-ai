@@ -337,15 +337,6 @@ def yonetici_giris():
 
             </form>
 
-            <a
-                href="/"
-                class="home"
-            >
-                ← Ana Menü
-            </a>
-
-        </div>
-
     </body>
 
     </html>
