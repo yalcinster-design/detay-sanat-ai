@@ -1,225 +1,379 @@
 <!DOCTYPE html>
+
 <html lang="tr">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>Öğrenci Sonuçları - Detay Sanat Akademi</title>
+<title>Öğrenci Sonuçları - Detay Sanat Akademi</title>
 
-    <style>
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        color: #222;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 700px;
+        margin: auto;
+    }
+
+    /* LOGO VE BAŞLIK */
+
+    .header {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .header img {
+        width: 115px;
+        max-width: 45%;
+        height: auto;
+        display: block;
+        margin: 0 auto 10px;
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 25px;
+        letter-spacing: 1px;
+    }
+
+    .header p {
+        margin: 8px 0 0;
+        color: #666;
+        font-size: 14px;
+    }
+
+    /* ANA MENÜ */
+
+    .ana-menu-alani {
+        text-align: center;
+        margin: 20px 0 25px;
+    }
+
+    .ana-menu {
+        display: inline-block;
+        text-decoration: none;
+        background: #222;
+        color: white;
+        padding: 10px 23px;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: bold;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+        transition: 0.2s;
+    }
+
+    .ana-menu:hover {
+        opacity: 0.85;
+        transform: translateY(-1px);
+    }
+
+    /* PANELLER */
+
+    .panel {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        margin-top: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        margin-top: 15px;
+        border: none;
+        border-radius: 8px;
+        background: #222;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        opacity: 0.85;
+    }
+
+    .ogrenciBilgi {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    /* İSTATİSTİKLER */
+
+    .istatistikler {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .istatistik {
+        background: #f4f4f4;
+        padding: 15px 5px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .istatistik strong {
+        display: block;
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+
+    /* GRAFİK */
+
+    .grafikAlan {
+        margin-top: 25px;
+    }
+
+    .grafikBaslik {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .grafikKutu {
+        width: 100%;
+        overflow-x: auto;
+        border-radius: 10px;
+    }
+
+    canvas {
+        width: 100%;
+        min-width: 500px;
+        height: 300px;
+        display: block;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background: white;
+    }
+
+    /* ÇALIŞMALAR */
+
+    .calisma {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 18px;
+        margin-top: 20px;
+        background: #fafafa;
+    }
+
+    .puan {
+        display: flex;
+        justify-content: space-between;
+        padding: 9px 0;
+        border-bottom: 1px solid #ddd;
+        gap: 10px;
+    }
+
+    .toplam {
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 18px;
+    }
+
+    .yorum {
+        margin-top: 18px;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        border-left: 4px solid #222;
+        line-height: 1.5;
+    }
+
+    .bekliyor {
+        text-align: center;
+        padding: 20px;
+        background: #fff3cd;
+        border-radius: 8px;
+    }
+
+    .mesaj {
+        text-align: center;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    .uyari {
+        text-align: center;
+        padding: 15px;
+        background: #f4f4f4;
+        border-radius: 10px;
+        margin-top: 15px;
+    }
+
+    /* TELEFON */
+
+    @media (max-width: 600px) {
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 0;
-            padding: 20px;
+            padding: 15px;
         }
 
-        .container {
-            max-width: 700px;
-            margin: auto;
+        .header img {
+            width: 100px;
+        }
+
+        .header h1 {
+            font-size: 21px;
+        }
+
+        .header p {
+            font-size: 13px;
+        }
+
+        .ana-menu-alani {
+            margin: 18px 0 22px;
+        }
+
+        .ana-menu {
+            padding: 10px 21px;
+            font-size: 13px;
         }
 
         .panel {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-top: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        h2 {
-            margin-top: 0;
-        }
-
-        input {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 14px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 8px;
-            background: #222;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            opacity: 0.85;
-        }
-
-        .ogrenciBilgi {
-            text-align: center;
-            margin-bottom: 25px;
+            padding: 18px;
+            margin-top: 16px;
         }
 
         .istatistikler {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 20px;
+            grid-template-columns: 1fr;
+            gap: 8px;
         }
 
         .istatistik {
-            background: #f4f4f4;
-            padding: 15px 5px;
-            border-radius: 10px;
-            text-align: center;
+            padding: 12px;
         }
 
         .istatistik strong {
-            display: block;
-            font-size: 22px;
-            margin-bottom: 5px;
-        }
-
-        .grafikAlan {
-            margin-top: 25px;
-        }
-
-        canvas {
-            width: 100%;
-            height: 300px;
-            display: block;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            background: white;
-        }
-
-        .grafikBaslik {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 21px;
         }
 
         .calisma {
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 18px;
-            margin-top: 20px;
-            background: #fafafa;
+            padding: 15px;
         }
 
         .puan {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #ddd;
+            font-size: 14px;
         }
 
         .toplam {
-            font-size: 22px;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 18px;
+            font-size: 20px;
         }
 
-        .yorum {
-            margin-top: 18px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border-left: 4px solid #222;
-        }
+    }
 
-        .bekliyor {
-            text-align: center;
-            padding: 20px;
-            background: #fff3cd;
-            border-radius: 8px;
-        }
-
-        .mesaj {
-            text-align: center;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        .uyari {
-            text-align: center;
-            padding: 15px;
-            background: #f4f4f4;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
-
-        @media (max-width: 500px) {
-
-            .istatistikler {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-    </style>
+</style>
+```
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
+```
+<!-- LOGO -->
+
+<div class="header">
+
+    <img
+        src="/static/logo.png"
+        alt="Detay Sanat Akademi"
+    >
 
     <h1>
         DETAY SANAT AKADEMİ
     </h1>
 
-
-    <div class="panel">
-
-        <h2>
-            Öğrenci Sonuçları
-        </h2>
-
-        <input
-            type="text"
-            id="ogrenciKodu"
-            placeholder="Öğrenci kodunuz (DS002)"
-            autocomplete="off"
-        >
-
-        <button onclick="sonuclariGetir()">
-            SONUÇLARIMI GÖR
-        </button>
-
-        <div
-            id="mesaj"
-            class="mesaj"
-        ></div>
-
-    </div>
-
-
-    <div
-        id="sonuclar"
-        style="display:none;"
-    ></div>
-
+    <p>
+        Öğrenci Sonuçları
+    </p>
 
 </div>
 
+
+<!-- ANA MENÜ -->
+
+<div class="ana-menu-alani">
+
+    <a
+        href="/"
+        class="ana-menu"
+    >
+        ← ANA MENÜ
+    </a>
+
+</div>
+
+
+<!-- ÖĞRENCİ KODU -->
+
+<div class="panel">
+
+    <h2>
+        Öğrenci Sonuçları
+    </h2>
+
+    <input
+        type="text"
+        id="ogrenciKodu"
+        placeholder="Öğrenci kodunuz (DS002)"
+        autocomplete="off"
+    >
+
+    <button onclick="sonuclariGetir()">
+        SONUÇLARIMI GÖR
+    </button>
+
+    <div
+        id="mesaj"
+        class="mesaj"
+    ></div>
+
+</div>
+
+
+<div
+    id="sonuclar"
+    style="display:none;"
+></div>
+```
+
+</div>
 
 <script>
 
@@ -431,11 +585,15 @@ async function sonuclariGetir() {
                         Genel Puan Gelişimi
                     </div>
 
-                    <canvas
-                        id="genelGrafik"
-                        width="650"
-                        height="300"
-                    ></canvas>
+                    <div class="grafikKutu">
+
+                        <canvas
+                            id="genelGrafik"
+                            width="650"
+                            height="300"
+                        ></canvas>
+
+                    </div>
 
                 </div>
 
@@ -454,11 +612,15 @@ async function sonuclariGetir() {
                         Kriter Gelişimi
                     </div>
 
-                    <canvas
-                        id="kriterGrafik"
-                        width="650"
-                        height="300"
-                    ></canvas>
+                    <div class="grafikKutu">
+
+                        <canvas
+                            id="kriterGrafik"
+                            width="650"
+                            height="300"
+                        ></canvas>
+
+                    </div>
 
                 </div>
 
@@ -1313,7 +1475,6 @@ if (urlKodu) {
 
 
 </script>
-
 
 </body>
 
