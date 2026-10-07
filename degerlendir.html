@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -11,6 +12,10 @@
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: #f2f2f2;
@@ -23,22 +28,62 @@
             margin: auto;
         }
 
+        /* ÜST BAŞLIK */
+
+        .ust {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .ust img {
+            width: 120px;
+            max-width: 45%;
+            height: auto;
+            display: block;
+            margin: 0 auto 12px;
+        }
+
+        .ust h1 {
+            margin: 0;
+            font-size: 25px;
+            letter-spacing: 1px;
+        }
+
+        .alt-baslik {
+            color: #666;
+            margin-top: 7px;
+            font-size: 14px;
+        }
+
+        /* GERİ DÖNÜŞ */
+
+        .geri-alan {
+            text-align: center;
+            margin: 15px 0 20px;
+        }
+
+        .geri {
+            display: inline-block;
+            text-decoration: none;
+            background: #222;
+            color: white;
+            padding: 11px 22px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .geri:hover {
+            background: #444;
+            transform: translateY(-1px);
+        }
+
         .kart {
             background: white;
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
-        .alt-baslik {
-            text-align: center;
-            color: #666;
-            margin-bottom: 25px;
         }
 
         .bilgi {
@@ -56,6 +101,7 @@
             object-fit: contain;
             border-radius: 10px;
             margin: 20px 0;
+            display: block;
         }
 
         .kriter {
@@ -125,10 +171,79 @@
             font-weight: bold;
         }
 
+        /* TELEFON */
+
         @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                width: 100%;
+            }
+
+            .ust img {
+                width: 105px;
+            }
+
+            .ust h1 {
+                font-size: 21px;
+            }
+
+            .alt-baslik {
+                font-size: 13px;
+            }
+
+            .geri-alan {
+                margin: 13px 0 17px;
+            }
+
+            .geri {
+                padding: 10px 18px;
+                font-size: 13px;
+            }
+
+            .kart {
+                padding: 18px;
+                border-radius: 13px;
+            }
+
+            .bilgi {
+                font-size: 15px;
+            }
+
+            #resim {
+                max-height: 500px;
+                margin: 15px 0;
+            }
 
             .secenekler {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .secenekler button {
+                padding: 12px 4px;
+                font-size: 13px;
+            }
+
+            .kriter {
+                margin-top: 22px;
+            }
+
+            .kriter h3 {
+                font-size: 17px;
+            }
+
+            textarea {
+                min-height: 110px;
+                font-size: 15px;
+            }
+
+            #kaydet {
+                font-size: 15px;
+                padding: 14px;
             }
 
         }
@@ -143,13 +258,40 @@
 
 <div class="container">
 
-    <div class="kart">
+
+    <!-- LOGO VE BAŞLIK -->
+
+    <div class="ust">
+
+        <img
+            src="/static/logo.png"
+            alt="Detay Sanat Akademi"
+        >
 
         <h1>DETAY SANAT AKADEMİ</h1>
 
         <div class="alt-baslik">
             Çizim Değerlendirme
         </div>
+
+    </div>
+
+
+    <!-- GERİ DÖNÜŞ -->
+
+    <div class="geri-alan">
+
+        <a
+            href="/ogretmen"
+            class="geri"
+        >
+            ← YÖNETİCİ PANELİNE DÖN
+        </a>
+
+    </div>
+
+
+    <div class="kart">
 
 
         <div id="bilgiler">
@@ -319,7 +461,10 @@
         </div>
 
 
-        <button id="kaydet" onclick="degerlendirmeyiKaydet()">
+        <button
+            id="kaydet"
+            onclick="degerlendirmeyiKaydet()"
+        >
             DEĞERLENDİRMEYİ KAYDET
         </button>
 
@@ -536,3 +681,4 @@ calismaGetir();
 </body>
 
 </html>
+```
